@@ -57,7 +57,7 @@ using namespace std;
 
 %%
     program: CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE
-            field_decl
+            field_decls
                method_decls CLOSE_CURLYBRACE
                 {
                    // Check if Identifier is Program
@@ -65,13 +65,13 @@ using namespace std;
                         cout << "Program encountered" << endl;
 
                 }
-    //field_decls :  field_decl
-    //            |   field_decl field_decls
-    field_decl :   type identifiers_opt_arrs SEMICOLON
-    identifiers_opt_arrs : identifiers_opt_arr
-                        |  identifiers_opt_arrs COMMA identifiers_opt_arr
-    identifiers_opt_arr : IDENTIFIER
-                        | IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET
+    field_decls :  field_decl
+               |   field_decl field_decls
+    field_decl :    type identifiers_arrs SEMICOLON
+                |   type identifiers SEMICOLON          
+    identifiers_arrs : identifiers_arr
+                    |  identifiers_arrs COMMA identifiers_arr
+    identifiers_arr : IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET
     method_decls : method_decl
                 | method_decl method_decls
     method_decl : method_type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block
