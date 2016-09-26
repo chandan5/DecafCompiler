@@ -22,7 +22,7 @@ Grammar
    10            | VOID
 
    11 params: param
-   12       | params COMMA param
+   12       | param COMMA params
 
    13 param: type IDENTIFIER
 
@@ -442,15 +442,16 @@ State 26
 State 27
 
     8 method_decl: method_type IDENTIFIER OPEN_PARANTHESIS params . CLOSE_PARANTHESIS block
-   12 params: params . COMMA param
 
-    COMMA              shift, and go to state 31
-    CLOSE_PARANTHESIS  shift, and go to state 32
+    CLOSE_PARANTHESIS  shift, and go to state 31
 
 
 State 28
 
    11 params: param .
+   12       | param . COMMA params
+
+    COMMA  shift, and go to state 32
 
     $default  reduce using rule 11 (params)
 
@@ -471,22 +472,23 @@ State 30
 
 State 31
 
-   12 params: params COMMA . param
+    8 method_decl: method_type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS . block
 
-    INT      shift, and go to state 8
-    BOOLEAN  shift, and go to state 9
+    OPEN_CURLYBRACE  shift, and go to state 35
 
-    param  go to state 35
-    type   go to state 29
+    block  go to state 36
 
 
 State 32
 
-    8 method_decl: method_type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS . block
+   12 params: param COMMA . params
 
-    OPEN_CURLYBRACE  shift, and go to state 36
+    INT      shift, and go to state 8
+    BOOLEAN  shift, and go to state 9
 
-    block  go to state 37
+    params  go to state 37
+    param   go to state 28
+    type    go to state 29
 
 
 State 33
@@ -505,13 +507,6 @@ State 34
 
 State 35
 
-   12 params: params COMMA param .
-
-    $default  reduce using rule 12 (params)
-
-
-State 36
-
    14 block: OPEN_CURLYBRACE . var_decls statements CLOSE_CURLYBRACE
 
     INT      shift, and go to state 8
@@ -522,18 +517,25 @@ State 36
     type       go to state 40
 
 
-State 37
+State 36
 
     8 method_decl: method_type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block .
 
     $default  reduce using rule 8 (method_decl)
 
 
+State 37
+
+   12 params: param COMMA params .
+
+    $default  reduce using rule 12 (params)
+
+
 State 38
 
    14 block: OPEN_CURLYBRACE var_decls . statements CLOSE_CURLYBRACE
 
-    OPEN_CURLYBRACE  shift, and go to state 36
+    OPEN_CURLYBRACE  shift, and go to state 35
     IF               shift, and go to state 41
     FOR              shift, and go to state 42
     CONTINUE         shift, and go to state 43
@@ -665,7 +667,7 @@ State 50
    20 statements: statement .
    21           | statement . statements
 
-    OPEN_CURLYBRACE  shift, and go to state 36
+    OPEN_CURLYBRACE  shift, and go to state 35
     IF               shift, and go to state 41
     FOR              shift, and go to state 42
     CONTINUE         shift, and go to state 43
@@ -1640,7 +1642,7 @@ State 111
    24 statement: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS . block ELSE block
    25          | IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS . block
 
-    OPEN_CURLYBRACE  shift, and go to state 36
+    OPEN_CURLYBRACE  shift, and go to state 35
 
     block  go to state 135
 
@@ -2243,7 +2245,7 @@ State 140
 
    24 statement: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE . block
 
-    OPEN_CURLYBRACE  shift, and go to state 36
+    OPEN_CURLYBRACE  shift, and go to state 35
 
     block  go to state 143
 
@@ -2265,7 +2267,7 @@ State 141
    53     | expr . DIVIDE expr
    54     | expr . MODULO expr
 
-    OPEN_CURLYBRACE  shift, and go to state 36
+    OPEN_CURLYBRACE  shift, and go to state 35
     OR               shift, and go to state 93
     AND              shift, and go to state 94
     EQUALEQUAL       shift, and go to state 95

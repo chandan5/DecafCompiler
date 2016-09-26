@@ -170,21 +170,3 @@ int main(int argc, char*argv[]) {
     cout << "Success" << endl;
     return 0;
 }
-// statement : SEMICOLON
-//         |   IDENTIFIER EQUAL expression SEMICOLON {cout << "Assignment operation encountered" << endl;}
-//         |   IDENTIFIER OPEN_SQUAREBRACKET expression CLOSE_SQUAREBRACKET EQUAL expression SEMICOLON {cout << "Assignment operation encountered" << endl;}
-//
-// expression : term
-//         |   term PLUS term {cout << "Addition expression encountered" << endl;}
-//         |   term MINUS term {cout << "Subtraction expression encountered" << endl;}
-// term :  factor
-//     |   factor MULTIPLY factor {cout << "Multiplication expression encountered" << endl;}
-//     |   factor DIVIDE factor {cout << "Division expression encountered" << endl;}
-//     |   factor MODULO factor {cout << "Modulus expression encountered" << endl;}
-// use test for debugging
-//test:  IDENTIFIER {cout << "found Identifier" << endl;}
-
-// factor :  IDENTIFIER
-//     |   IDENTIFIER OPEN_SQUAREBRACKET expression CLOSE_SQUAREBRACKET
-//     |   literal
-//     |   OPEN_PARANTHESIS expression CLOSE_PARANTHESIS
