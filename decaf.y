@@ -39,11 +39,6 @@ using namespace std;
 %token INT
 %token BOOLEAN
 %token TRUE
-%token NOT AND OR
-%token EQUALEQUAL NOTEQUAL LESSEQUAL LESSTHAN GREATEREQUAL GREATERTHAN
-
-%token PLUS MINUS
-%token MULTIPLY DIVIDE MODULO
 
 // TODO prescedence
 %token <sval> IDENTIFIER
@@ -58,11 +53,12 @@ using namespace std;
 %nonassoc LESSEQUAL LESSTHAN GREATEREQUAL GREATERTHAN
 %left PLUS MINUS
 %left MULTIPLY DIVIDE MODULO
-
+%precedence NOT
 
 %%
     program: CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE
-               field_decls method_decls CLOSE_CURLYBRACE
+               field_decls
+               method_decls CLOSE_CURLYBRACE
                 {
                    // Check if Identifier is Program
                     cout << "Program encountered" << endl;
@@ -89,7 +85,7 @@ using namespace std;
                 |   statement statements
     statement : location assign_op expr SEMICOLON
             |   method_call SEMICOLON
-            // |   IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE block
+            |   IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE block
             |   IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block
             |   FOR IDENTIFIER EQUAL expr COMMA expr block
             |   RETURN expr SEMICOLON
@@ -108,23 +104,25 @@ using namespace std;
     expr :  location
         |   method_call
         |   literal
-        |   expr bin_op expr
+        |   expr OR expr
+        |   expr AND expr
+        |   expr EQUALEQUAL expr
+        |   expr NOTEQUAL expr
+        |   expr LESSTHAN expr
+        |   expr LESSEQUAL expr
+        |   expr GREATERTHAN expr
+        |   expr GREATEREQUAL expr
+        |   expr PLUS expr
+        |   expr MINUS expr
+        |   expr MULTIPLY expr
+        |   expr DIVIDE expr
+        |   expr MODULO expr
         |   MINUS expr
         |   NOT expr
         |   OPEN_PARANTHESIS expr CLOSE_PARANTHESIS
     callout_args : callout_arg
                 |   callout_args COMMA callout_arg
     callout_arg : expr | STRING_VALUE
-    bin_op : arith_op | rel_op | eq_op | cond_op
-    arith_op : PLUS | MINUS | MULTIPLY | DIVIDE | MODULO
-    rel_op :LESSTHAN
-        |   LESSEQUAL
-        |   GREATERTHAN
-        |   GREATEREQUAL
-    eq_op : EQUALEQUAL
-        |   NOTEQUAL
-    cond_op : AND
-            | OR
     assign_op : EQUAL
             |   PLUSEQUAL
             |   MINUSEQUAL
