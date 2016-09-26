@@ -57,16 +57,21 @@ using namespace std;
 
 %%
     program: CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE
-               field_decls
+            field_decl
                method_decls CLOSE_CURLYBRACE
                 {
                    // Check if Identifier is Program
-                    cout << "Program encountered" << endl;
+                //    if($2 == "Program")
+                        cout << "Program encountered" << endl;
+
                 }
-    field_decls :  field_decl
-                |   field_decl field_decls
-    field_decl :   type IDENTIFIER SEMICOLON {cout << "Id=" << $2 << endl;}
-               |   type IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET SEMICOLON {cout << "Id=" << $2 << endl << "Size=" << $4 << endl;}
+    //field_decls :  field_decl
+    //            |   field_decl field_decls
+    field_decl :   type identifiers_opt_arrs SEMICOLON
+    identifiers_opt_arrs : identifiers_opt_arr
+                        |  identifiers_opt_arrs COMMA identifiers_opt_arr
+    identifiers_opt_arr : IDENTIFIER
+                        | IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET
     method_decls : method_decl
                 | method_decl method_decls
     method_decl : method_type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block
@@ -95,6 +100,7 @@ using namespace std;
             |   block
 
     method_call : method_name OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS
+            |     CALLOUT OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS
             |     CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS
     exprs : expr
         |   exprs COMMA expr
@@ -120,8 +126,9 @@ using namespace std;
         |   MINUS expr
         |   NOT expr
         |   OPEN_PARANTHESIS expr CLOSE_PARANTHESIS
-    callout_args : callout_arg
-                |   callout_args COMMA callout_arg
+    callout_args : COMMA callout_arg
+                |  callout_args COMMA callout_arg
+            //    |
     callout_arg : expr | STRING_VALUE
     assign_op : EQUAL
             |   PLUSEQUAL
