@@ -7,7 +7,6 @@
 #include "decaf.tab.hh"
 
 int error_count = 0;
-//ofstream flexoutfile;
 %}
 
 %option yylineno
