@@ -82,6 +82,9 @@ using namespace std;
            | params COMMA param
     param : type IDENTIFIER
     block : OPEN_CURLYBRACE var_decls statements CLOSE_CURLYBRACE
+        |   OPEN_CURLYBRACE var_decls CLOSE_CURLYBRACE
+        |   OPEN_CURLYBRACE statements CLOSE_CURLYBRACE
+        |   OPEN_CURLYBRACE CLOSE_CURLYBRACE
     var_decls : var_decl
             |   var_decl var_decls
     var_decl : type identifiers SEMICOLON

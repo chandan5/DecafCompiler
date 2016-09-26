@@ -35,128 +35,131 @@ Grammar
    19 param: type IDENTIFIER
 
    20 block: OPEN_CURLYBRACE var_decls statements CLOSE_CURLYBRACE
+   21      | OPEN_CURLYBRACE var_decls CLOSE_CURLYBRACE
+   22      | OPEN_CURLYBRACE statements CLOSE_CURLYBRACE
+   23      | OPEN_CURLYBRACE CLOSE_CURLYBRACE
 
-   21 var_decls: var_decl
-   22          | var_decl var_decls
+   24 var_decls: var_decl
+   25          | var_decl var_decls
 
-   23 var_decl: type identifiers SEMICOLON
+   26 var_decl: type identifiers SEMICOLON
 
-   24 identifiers: IDENTIFIER
-   25            | identifiers COMMA IDENTIFIER
+   27 identifiers: IDENTIFIER
+   28            | identifiers COMMA IDENTIFIER
 
-   26 statements: statement
-   27           | statement statements
+   29 statements: statement
+   30           | statement statements
 
-   28 statement: location assign_op expr SEMICOLON
-   29          | method_call SEMICOLON
-   30          | IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE block
-   31          | IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block
-   32          | FOR IDENTIFIER EQUAL expr COMMA expr block
-   33          | RETURN expr SEMICOLON
-   34          | RETURN SEMICOLON
-   35          | BREAK SEMICOLON
-   36          | CONTINUE SEMICOLON
-   37          | block
+   31 statement: location assign_op expr SEMICOLON
+   32          | method_call SEMICOLON
+   33          | IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE block
+   34          | IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block
+   35          | FOR IDENTIFIER EQUAL expr COMMA expr block
+   36          | RETURN expr SEMICOLON
+   37          | RETURN SEMICOLON
+   38          | BREAK SEMICOLON
+   39          | CONTINUE SEMICOLON
+   40          | block
 
-   38 method_call: method_name OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS
-   39            | CALLOUT OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS
-   40            | CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS
+   41 method_call: method_name OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS
+   42            | CALLOUT OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS
+   43            | CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS
 
-   41 exprs: expr
-   42      | exprs COMMA expr
+   44 exprs: expr
+   45      | exprs COMMA expr
 
-   43 method_name: IDENTIFIER
+   46 method_name: IDENTIFIER
 
-   44 location: IDENTIFIER
-   45         | IDENTIFIER OPEN_SQUAREBRACKET expr CLOSE_SQUAREBRACKET
+   47 location: IDENTIFIER
+   48         | IDENTIFIER OPEN_SQUAREBRACKET expr CLOSE_SQUAREBRACKET
 
-   46 expr: location
-   47     | method_call
-   48     | literal
-   49     | expr OR expr
-   50     | expr AND expr
-   51     | expr EQUALEQUAL expr
-   52     | expr NOTEQUAL expr
-   53     | expr LESSTHAN expr
-   54     | expr LESSEQUAL expr
-   55     | expr GREATERTHAN expr
-   56     | expr GREATEREQUAL expr
-   57     | expr PLUS expr
-   58     | expr MINUS expr
-   59     | expr MULTIPLY expr
-   60     | expr DIVIDE expr
-   61     | expr MODULO expr
-   62     | MINUS expr
-   63     | NOT expr
-   64     | OPEN_PARANTHESIS expr CLOSE_PARANTHESIS
+   49 expr: location
+   50     | method_call
+   51     | literal
+   52     | expr OR expr
+   53     | expr AND expr
+   54     | expr EQUALEQUAL expr
+   55     | expr NOTEQUAL expr
+   56     | expr LESSTHAN expr
+   57     | expr LESSEQUAL expr
+   58     | expr GREATERTHAN expr
+   59     | expr GREATEREQUAL expr
+   60     | expr PLUS expr
+   61     | expr MINUS expr
+   62     | expr MULTIPLY expr
+   63     | expr DIVIDE expr
+   64     | expr MODULO expr
+   65     | MINUS expr
+   66     | NOT expr
+   67     | OPEN_PARANTHESIS expr CLOSE_PARANTHESIS
 
-   65 callout_args: COMMA callout_arg
-   66             | callout_args COMMA callout_arg
+   68 callout_args: COMMA callout_arg
+   69             | callout_args COMMA callout_arg
 
-   67 callout_arg: expr
-   68            | STRING_VALUE
+   70 callout_arg: expr
+   71            | STRING_VALUE
 
-   69 assign_op: EQUAL
-   70          | PLUSEQUAL
-   71          | MINUSEQUAL
+   72 assign_op: EQUAL
+   73          | PLUSEQUAL
+   74          | MINUSEQUAL
 
-   72 literal: INT_VALUE
-   73        | bool_value
-   74        | CHAR_VALUE
+   75 literal: INT_VALUE
+   76        | bool_value
+   77        | CHAR_VALUE
 
-   75 bool_value: TRUE
-   76           | FALSE
+   78 bool_value: TRUE
+   79           | FALSE
 
-   77 type: INT
-   78     | BOOLEAN
+   80 type: INT
+   81     | BOOLEAN
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-SEMICOLON (258) 7 8 23 28 29 33 34 35 36
-COMMA (259) 10 18 25 32 42 65 66
-OPEN_PARANTHESIS (260) 1 2 3 4 14 30 31 38 39 40 64
-CLOSE_PARANTHESIS (261) 1 2 3 4 14 30 31 38 39 40 64
-OPEN_SQUAREBRACKET (262) 11 45
-CLOSE_SQUAREBRACKET (263) 11 45
-OPEN_CURLYBRACE (264) 1 2 3 4 20
-CLOSE_CURLYBRACE (265) 1 2 3 4 20
+SEMICOLON (258) 7 8 26 31 32 36 37 38 39
+COMMA (259) 10 18 28 35 45 68 69
+OPEN_PARANTHESIS (260) 1 2 3 4 14 33 34 41 42 43 67
+CLOSE_PARANTHESIS (261) 1 2 3 4 14 33 34 41 42 43 67
+OPEN_SQUAREBRACKET (262) 11 48
+CLOSE_SQUAREBRACKET (263) 11 48
+OPEN_CURLYBRACE (264) 1 2 3 4 20 21 22 23
+CLOSE_CURLYBRACE (265) 1 2 3 4 20 21 22 23
 CLASS (266) 1 2 3 4
-IF (267) 30 31
-ELSE (268) 30
-FOR (269) 32
-CONTINUE (270) 36
-BREAK (271) 35
-CALLOUT (272) 39 40
-RETURN (273) 33 34
+IF (267) 33 34
+ELSE (268) 33
+FOR (269) 35
+CONTINUE (270) 39
+BREAK (271) 38
+CALLOUT (272) 42 43
+RETURN (273) 36 37
 VOID (274) 16
-FALSE (275) 76
-INT (276) 77
-BOOLEAN (277) 78
-TRUE (278) 75
-IDENTIFIER (279) 1 2 3 4 11 14 19 24 25 32 43 44 45
-STRING_VALUE (280) 39 40 68
-CHAR_VALUE (281) 74
-INT_VALUE (282) 11 72
-OR (283) 49
-AND (284) 50
-EQUAL (285) 32 69
-PLUSEQUAL (286) 70
-MINUSEQUAL (287) 71
-EQUALEQUAL (288) 51
-NOTEQUAL (289) 52
-LESSEQUAL (290) 54
-LESSTHAN (291) 53
-GREATEREQUAL (292) 56
-GREATERTHAN (293) 55
-PLUS (294) 57
-MINUS (295) 58 62
-MULTIPLY (296) 59
-DIVIDE (297) 60
-MODULO (298) 61
-NOT (299) 63
+FALSE (275) 79
+INT (276) 80
+BOOLEAN (277) 81
+TRUE (278) 78
+IDENTIFIER (279) 1 2 3 4 11 14 19 27 28 35 46 47 48
+STRING_VALUE (280) 42 43 71
+CHAR_VALUE (281) 77
+INT_VALUE (282) 11 75
+OR (283) 52
+AND (284) 53
+EQUAL (285) 35 72
+PLUSEQUAL (286) 73
+MINUSEQUAL (287) 74
+EQUALEQUAL (288) 54
+NOTEQUAL (289) 55
+LESSEQUAL (290) 57
+LESSTHAN (291) 56
+GREATEREQUAL (292) 59
+GREATERTHAN (293) 58
+PLUS (294) 60
+MINUS (295) 61 65
+MULTIPLY (296) 62
+DIVIDE (297) 63
+MODULO (298) 64
+NOT (299) 66
 
 
 Nonterminals, with rules where they appear
@@ -184,41 +187,41 @@ params (54)
 param (55)
     on left: 19, on right: 17 18
 block (56)
-    on left: 20, on right: 14 30 31 32 37
+    on left: 20 21 22 23, on right: 14 33 34 35 40
 var_decls (57)
-    on left: 21 22, on right: 20 22
+    on left: 24 25, on right: 20 21 25
 var_decl (58)
-    on left: 23, on right: 21 22
+    on left: 26, on right: 24 25
 identifiers (59)
-    on left: 24 25, on right: 8 23 25
+    on left: 27 28, on right: 8 26 28
 statements (60)
-    on left: 26 27, on right: 20 27
+    on left: 29 30, on right: 20 22 30
 statement (61)
-    on left: 28 29 30 31 32 33 34 35 36 37, on right: 26 27
+    on left: 31 32 33 34 35 36 37 38 39 40, on right: 29 30
 method_call (62)
-    on left: 38 39 40, on right: 29 47
+    on left: 41 42 43, on right: 32 50
 exprs (63)
-    on left: 41 42, on right: 38 42
+    on left: 44 45, on right: 41 45
 method_name (64)
-    on left: 43, on right: 38
+    on left: 46, on right: 41
 location (65)
-    on left: 44 45, on right: 28 46
+    on left: 47 48, on right: 31 49
 expr (66)
-    on left: 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63
-    64, on right: 28 30 31 32 33 41 42 45 49 50 51 52 53 54 55 56 57
-    58 59 60 61 62 63 64 67
+    on left: 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66
+    67, on right: 31 33 34 35 36 44 45 48 52 53 54 55 56 57 58 59 60
+    61 62 63 64 65 66 67 70
 callout_args (67)
-    on left: 65 66, on right: 40 66
+    on left: 68 69, on right: 43 69
 callout_arg (68)
-    on left: 67 68, on right: 65 66
+    on left: 70 71, on right: 68 69
 assign_op (69)
-    on left: 69 70 71, on right: 28
+    on left: 72 73 74, on right: 31
 literal (70)
-    on left: 72 73 74, on right: 48
+    on left: 75 76 77, on right: 51
 bool_value (71)
-    on left: 75 76, on right: 73
+    on left: 78 79, on right: 76
 type (72)
-    on left: 77 78, on right: 7 8 15 19 23
+    on left: 80 81, on right: 7 8 15 19 26
 
 
 State 0
@@ -320,16 +323,16 @@ State 9
 
 State 10
 
-   77 type: INT .
+   80 type: INT .
 
-    $default  reduce using rule 77 (type)
+    $default  reduce using rule 80 (type)
 
 
 State 11
 
-   78 type: BOOLEAN .
+   81 type: BOOLEAN .
 
-    $default  reduce using rule 78 (type)
+    $default  reduce using rule 81 (type)
 
 
 State 12
@@ -455,11 +458,11 @@ State 24
 State 25
 
    11 identifiers_arr: IDENTIFIER . OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET
-   24 identifiers: IDENTIFIER .
+   27 identifiers: IDENTIFIER .
 
     OPEN_SQUAREBRACKET  shift, and go to state 31
 
-    $default  reduce using rule 24 (identifiers)
+    $default  reduce using rule 27 (identifiers)
 
 
 State 26
@@ -481,7 +484,7 @@ State 27
 State 28
 
     8 field_decl: type identifiers . SEMICOLON
-   25 identifiers: identifiers . COMMA IDENTIFIER
+   28 identifiers: identifiers . COMMA IDENTIFIER
 
     SEMICOLON  shift, and go to state 34
     COMMA      shift, and go to state 35
@@ -538,7 +541,7 @@ State 34
 
 State 35
 
-   25 identifiers: identifiers COMMA . IDENTIFIER
+   28 identifiers: identifiers COMMA . IDENTIFIER
 
     IDENTIFIER  shift, and go to state 42
 
@@ -589,9 +592,9 @@ State 41
 
 State 42
 
-   25 identifiers: identifiers COMMA IDENTIFIER .
+   28 identifiers: identifiers COMMA IDENTIFIER .
 
-    $default  reduce using rule 25 (identifiers)
+    $default  reduce using rule 28 (identifiers)
 
 
 State 43
@@ -638,13 +641,31 @@ State 47
 State 48
 
    20 block: OPEN_CURLYBRACE . var_decls statements CLOSE_CURLYBRACE
+   21      | OPEN_CURLYBRACE . var_decls CLOSE_CURLYBRACE
+   22      | OPEN_CURLYBRACE . statements CLOSE_CURLYBRACE
+   23      | OPEN_CURLYBRACE . CLOSE_CURLYBRACE
 
-    INT      shift, and go to state 10
-    BOOLEAN  shift, and go to state 11
+    OPEN_CURLYBRACE   shift, and go to state 48
+    CLOSE_CURLYBRACE  shift, and go to state 50
+    IF                shift, and go to state 51
+    FOR               shift, and go to state 52
+    CONTINUE          shift, and go to state 53
+    BREAK             shift, and go to state 54
+    CALLOUT           shift, and go to state 55
+    RETURN            shift, and go to state 56
+    INT               shift, and go to state 10
+    BOOLEAN           shift, and go to state 11
+    IDENTIFIER        shift, and go to state 57
 
-    var_decls  go to state 50
-    var_decl   go to state 51
-    type       go to state 52
+    block        go to state 58
+    var_decls    go to state 59
+    var_decl     go to state 60
+    statements   go to state 61
+    statement    go to state 62
+    method_call  go to state 63
+    method_name  go to state 64
+    location     go to state 65
+    type         go to state 66
 
 
 State 49
@@ -656,154 +677,154 @@ State 49
 
 State 50
 
+   23 block: OPEN_CURLYBRACE CLOSE_CURLYBRACE .
+
+    $default  reduce using rule 23 (block)
+
+
+State 51
+
+   33 statement: IF . OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE block
+   34          | IF . OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block
+
+    OPEN_PARANTHESIS  shift, and go to state 67
+
+
+State 52
+
+   35 statement: FOR . IDENTIFIER EQUAL expr COMMA expr block
+
+    IDENTIFIER  shift, and go to state 68
+
+
+State 53
+
+   39 statement: CONTINUE . SEMICOLON
+
+    SEMICOLON  shift, and go to state 69
+
+
+State 54
+
+   38 statement: BREAK . SEMICOLON
+
+    SEMICOLON  shift, and go to state 70
+
+
+State 55
+
+   42 method_call: CALLOUT . OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS
+   43            | CALLOUT . OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS
+
+    OPEN_PARANTHESIS  shift, and go to state 71
+
+
+State 56
+
+   36 statement: RETURN . expr SEMICOLON
+   37          | RETURN . SEMICOLON
+
+    SEMICOLON         shift, and go to state 72
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 82
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 57
+
+   46 method_name: IDENTIFIER .
+   47 location: IDENTIFIER .
+   48         | IDENTIFIER . OPEN_SQUAREBRACKET expr CLOSE_SQUAREBRACKET
+
+    OPEN_SQUAREBRACKET  shift, and go to state 85
+
+    OPEN_PARANTHESIS  reduce using rule 46 (method_name)
+    $default          reduce using rule 47 (location)
+
+
+State 58
+
+   40 statement: block .
+
+    $default  reduce using rule 40 (statement)
+
+
+State 59
+
    20 block: OPEN_CURLYBRACE var_decls . statements CLOSE_CURLYBRACE
+   21      | OPEN_CURLYBRACE var_decls . CLOSE_CURLYBRACE
 
-    OPEN_CURLYBRACE  shift, and go to state 48
-    IF               shift, and go to state 53
-    FOR              shift, and go to state 54
-    CONTINUE         shift, and go to state 55
-    BREAK            shift, and go to state 56
-    CALLOUT          shift, and go to state 57
-    RETURN           shift, and go to state 58
-    IDENTIFIER       shift, and go to state 59
+    OPEN_CURLYBRACE   shift, and go to state 48
+    CLOSE_CURLYBRACE  shift, and go to state 86
+    IF                shift, and go to state 51
+    FOR               shift, and go to state 52
+    CONTINUE          shift, and go to state 53
+    BREAK             shift, and go to state 54
+    CALLOUT           shift, and go to state 55
+    RETURN            shift, and go to state 56
+    IDENTIFIER        shift, and go to state 57
 
-    block        go to state 60
-    statements   go to state 61
+    block        go to state 58
+    statements   go to state 87
     statement    go to state 62
     method_call  go to state 63
     method_name  go to state 64
     location     go to state 65
 
 
-State 51
+State 60
 
-   21 var_decls: var_decl .
-   22          | var_decl . var_decls
+   24 var_decls: var_decl .
+   25          | var_decl . var_decls
 
     INT      shift, and go to state 10
     BOOLEAN  shift, and go to state 11
 
-    $default  reduce using rule 21 (var_decls)
+    $default  reduce using rule 24 (var_decls)
 
-    var_decls  go to state 66
-    var_decl   go to state 51
-    type       go to state 52
-
-
-State 52
-
-   23 var_decl: type . identifiers SEMICOLON
-
-    IDENTIFIER  shift, and go to state 67
-
-    identifiers  go to state 68
-
-
-State 53
-
-   30 statement: IF . OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE block
-   31          | IF . OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block
-
-    OPEN_PARANTHESIS  shift, and go to state 69
-
-
-State 54
-
-   32 statement: FOR . IDENTIFIER EQUAL expr COMMA expr block
-
-    IDENTIFIER  shift, and go to state 70
-
-
-State 55
-
-   36 statement: CONTINUE . SEMICOLON
-
-    SEMICOLON  shift, and go to state 71
-
-
-State 56
-
-   35 statement: BREAK . SEMICOLON
-
-    SEMICOLON  shift, and go to state 72
-
-
-State 57
-
-   39 method_call: CALLOUT . OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS
-   40            | CALLOUT . OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS
-
-    OPEN_PARANTHESIS  shift, and go to state 73
-
-
-State 58
-
-   33 statement: RETURN . expr SEMICOLON
-   34          | RETURN . SEMICOLON
-
-    SEMICOLON         shift, and go to state 74
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 84
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 59
-
-   43 method_name: IDENTIFIER .
-   44 location: IDENTIFIER .
-   45         | IDENTIFIER . OPEN_SQUAREBRACKET expr CLOSE_SQUAREBRACKET
-
-    OPEN_SQUAREBRACKET  shift, and go to state 87
-
-    OPEN_PARANTHESIS  reduce using rule 43 (method_name)
-    $default          reduce using rule 44 (location)
-
-
-State 60
-
-   37 statement: block .
-
-    $default  reduce using rule 37 (statement)
+    var_decls  go to state 88
+    var_decl   go to state 60
+    type       go to state 66
 
 
 State 61
 
-   20 block: OPEN_CURLYBRACE var_decls statements . CLOSE_CURLYBRACE
+   22 block: OPEN_CURLYBRACE statements . CLOSE_CURLYBRACE
 
-    CLOSE_CURLYBRACE  shift, and go to state 88
+    CLOSE_CURLYBRACE  shift, and go to state 89
 
 
 State 62
 
-   26 statements: statement .
-   27           | statement . statements
+   29 statements: statement .
+   30           | statement . statements
 
     OPEN_CURLYBRACE  shift, and go to state 48
-    IF               shift, and go to state 53
-    FOR              shift, and go to state 54
-    CONTINUE         shift, and go to state 55
-    BREAK            shift, and go to state 56
-    CALLOUT          shift, and go to state 57
-    RETURN           shift, and go to state 58
-    IDENTIFIER       shift, and go to state 59
+    IF               shift, and go to state 51
+    FOR              shift, and go to state 52
+    CONTINUE         shift, and go to state 53
+    BREAK            shift, and go to state 54
+    CALLOUT          shift, and go to state 55
+    RETURN           shift, and go to state 56
+    IDENTIFIER       shift, and go to state 57
 
-    $default  reduce using rule 26 (statements)
+    $default  reduce using rule 29 (statements)
 
-    block        go to state 60
-    statements   go to state 89
+    block        go to state 58
+    statements   go to state 90
     statement    go to state 62
     method_call  go to state 63
     method_name  go to state 64
@@ -812,1227 +833,1226 @@ State 62
 
 State 63
 
-   29 statement: method_call . SEMICOLON
+   32 statement: method_call . SEMICOLON
 
-    SEMICOLON  shift, and go to state 90
+    SEMICOLON  shift, and go to state 91
 
 
 State 64
 
-   38 method_call: method_name . OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS
+   41 method_call: method_name . OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS
 
-    OPEN_PARANTHESIS  shift, and go to state 91
+    OPEN_PARANTHESIS  shift, and go to state 92
 
 
 State 65
 
-   28 statement: location . assign_op expr SEMICOLON
+   31 statement: location . assign_op expr SEMICOLON
 
-    EQUAL       shift, and go to state 92
-    PLUSEQUAL   shift, and go to state 93
-    MINUSEQUAL  shift, and go to state 94
+    EQUAL       shift, and go to state 93
+    PLUSEQUAL   shift, and go to state 94
+    MINUSEQUAL  shift, and go to state 95
 
-    assign_op  go to state 95
+    assign_op  go to state 96
 
 
 State 66
 
-   22 var_decls: var_decl var_decls .
+   26 var_decl: type . identifiers SEMICOLON
 
-    $default  reduce using rule 22 (var_decls)
+    IDENTIFIER  shift, and go to state 97
+
+    identifiers  go to state 98
 
 
 State 67
 
-   24 identifiers: IDENTIFIER .
+   33 statement: IF OPEN_PARANTHESIS . expr CLOSE_PARANTHESIS block ELSE block
+   34          | IF OPEN_PARANTHESIS . expr CLOSE_PARANTHESIS block
 
-    $default  reduce using rule 24 (identifiers)
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 99
+    literal      go to state 83
+    bool_value   go to state 84
 
 
 State 68
 
-   23 var_decl: type identifiers . SEMICOLON
-   25 identifiers: identifiers . COMMA IDENTIFIER
+   35 statement: FOR IDENTIFIER . EQUAL expr COMMA expr block
 
-    SEMICOLON  shift, and go to state 96
-    COMMA      shift, and go to state 35
+    EQUAL  shift, and go to state 100
 
 
 State 69
 
-   30 statement: IF OPEN_PARANTHESIS . expr CLOSE_PARANTHESIS block ELSE block
-   31          | IF OPEN_PARANTHESIS . expr CLOSE_PARANTHESIS block
+   39 statement: CONTINUE SEMICOLON .
 
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 97
-    literal      go to state 85
-    bool_value   go to state 86
+    $default  reduce using rule 39 (statement)
 
 
 State 70
 
-   32 statement: FOR IDENTIFIER . EQUAL expr COMMA expr block
+   38 statement: BREAK SEMICOLON .
 
-    EQUAL  shift, and go to state 98
+    $default  reduce using rule 38 (statement)
 
 
 State 71
 
-   36 statement: CONTINUE SEMICOLON .
+   42 method_call: CALLOUT OPEN_PARANTHESIS . STRING_VALUE CLOSE_PARANTHESIS
+   43            | CALLOUT OPEN_PARANTHESIS . STRING_VALUE callout_args CLOSE_PARANTHESIS
 
-    $default  reduce using rule 36 (statement)
+    STRING_VALUE  shift, and go to state 101
 
 
 State 72
 
-   35 statement: BREAK SEMICOLON .
+   37 statement: RETURN SEMICOLON .
 
-    $default  reduce using rule 35 (statement)
+    $default  reduce using rule 37 (statement)
 
 
 State 73
 
-   39 method_call: CALLOUT OPEN_PARANTHESIS . STRING_VALUE CLOSE_PARANTHESIS
-   40            | CALLOUT OPEN_PARANTHESIS . STRING_VALUE callout_args CLOSE_PARANTHESIS
+   67 expr: OPEN_PARANTHESIS . expr CLOSE_PARANTHESIS
 
-    STRING_VALUE  shift, and go to state 99
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 102
+    literal      go to state 83
+    bool_value   go to state 84
 
 
 State 74
 
-   34 statement: RETURN SEMICOLON .
+   79 bool_value: FALSE .
 
-    $default  reduce using rule 34 (statement)
+    $default  reduce using rule 79 (bool_value)
 
 
 State 75
 
-   64 expr: OPEN_PARANTHESIS . expr CLOSE_PARANTHESIS
+   78 bool_value: TRUE .
 
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 100
-    literal      go to state 85
-    bool_value   go to state 86
+    $default  reduce using rule 78 (bool_value)
 
 
 State 76
 
-   76 bool_value: FALSE .
+   77 literal: CHAR_VALUE .
 
-    $default  reduce using rule 76 (bool_value)
+    $default  reduce using rule 77 (literal)
 
 
 State 77
 
-   75 bool_value: TRUE .
+   75 literal: INT_VALUE .
 
-    $default  reduce using rule 75 (bool_value)
+    $default  reduce using rule 75 (literal)
 
 
 State 78
 
-   74 literal: CHAR_VALUE .
+   65 expr: MINUS . expr
 
-    $default  reduce using rule 74 (literal)
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 103
+    literal      go to state 83
+    bool_value   go to state 84
 
 
 State 79
 
-   72 literal: INT_VALUE .
+   66 expr: NOT . expr
 
-    $default  reduce using rule 72 (literal)
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 104
+    literal      go to state 83
+    bool_value   go to state 84
 
 
 State 80
 
-   62 expr: MINUS . expr
+   50 expr: method_call .
 
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 101
-    literal      go to state 85
-    bool_value   go to state 86
+    $default  reduce using rule 50 (expr)
 
 
 State 81
 
-   63 expr: NOT . expr
+   49 expr: location .
 
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 102
-    literal      go to state 85
-    bool_value   go to state 86
+    $default  reduce using rule 49 (expr)
 
 
 State 82
 
-   47 expr: method_call .
+   36 statement: RETURN expr . SEMICOLON
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    $default  reduce using rule 47 (expr)
+    SEMICOLON     shift, and go to state 105
+    OR            shift, and go to state 106
+    AND           shift, and go to state 107
+    EQUALEQUAL    shift, and go to state 108
+    NOTEQUAL      shift, and go to state 109
+    LESSEQUAL     shift, and go to state 110
+    LESSTHAN      shift, and go to state 111
+    GREATEREQUAL  shift, and go to state 112
+    GREATERTHAN   shift, and go to state 113
+    PLUS          shift, and go to state 114
+    MINUS         shift, and go to state 115
+    MULTIPLY      shift, and go to state 116
+    DIVIDE        shift, and go to state 117
+    MODULO        shift, and go to state 118
 
 
 State 83
 
-   46 expr: location .
+   51 expr: literal .
 
-    $default  reduce using rule 46 (expr)
+    $default  reduce using rule 51 (expr)
 
 
 State 84
 
-   33 statement: RETURN expr . SEMICOLON
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   76 literal: bool_value .
 
-    SEMICOLON     shift, and go to state 103
-    OR            shift, and go to state 104
-    AND           shift, and go to state 105
-    EQUALEQUAL    shift, and go to state 106
-    NOTEQUAL      shift, and go to state 107
-    LESSEQUAL     shift, and go to state 108
-    LESSTHAN      shift, and go to state 109
-    GREATEREQUAL  shift, and go to state 110
-    GREATERTHAN   shift, and go to state 111
-    PLUS          shift, and go to state 112
-    MINUS         shift, and go to state 113
-    MULTIPLY      shift, and go to state 114
-    DIVIDE        shift, and go to state 115
-    MODULO        shift, and go to state 116
+    $default  reduce using rule 76 (literal)
 
 
 State 85
 
-   48 expr: literal .
+   48 location: IDENTIFIER OPEN_SQUAREBRACKET . expr CLOSE_SQUAREBRACKET
 
-    $default  reduce using rule 48 (expr)
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 119
+    literal      go to state 83
+    bool_value   go to state 84
 
 
 State 86
 
-   73 literal: bool_value .
+   21 block: OPEN_CURLYBRACE var_decls CLOSE_CURLYBRACE .
 
-    $default  reduce using rule 73 (literal)
+    $default  reduce using rule 21 (block)
 
 
 State 87
 
-   45 location: IDENTIFIER OPEN_SQUAREBRACKET . expr CLOSE_SQUAREBRACKET
+   20 block: OPEN_CURLYBRACE var_decls statements . CLOSE_CURLYBRACE
 
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 117
-    literal      go to state 85
-    bool_value   go to state 86
+    CLOSE_CURLYBRACE  shift, and go to state 120
 
 
 State 88
+
+   25 var_decls: var_decl var_decls .
+
+    $default  reduce using rule 25 (var_decls)
+
+
+State 89
+
+   22 block: OPEN_CURLYBRACE statements CLOSE_CURLYBRACE .
+
+    $default  reduce using rule 22 (block)
+
+
+State 90
+
+   30 statements: statement statements .
+
+    $default  reduce using rule 30 (statements)
+
+
+State 91
+
+   32 statement: method_call SEMICOLON .
+
+    $default  reduce using rule 32 (statement)
+
+
+State 92
+
+   41 method_call: method_name OPEN_PARANTHESIS . exprs CLOSE_PARANTHESIS
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    exprs        go to state 121
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 122
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 93
+
+   72 assign_op: EQUAL .
+
+    $default  reduce using rule 72 (assign_op)
+
+
+State 94
+
+   73 assign_op: PLUSEQUAL .
+
+    $default  reduce using rule 73 (assign_op)
+
+
+State 95
+
+   74 assign_op: MINUSEQUAL .
+
+    $default  reduce using rule 74 (assign_op)
+
+
+State 96
+
+   31 statement: location assign_op . expr SEMICOLON
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 123
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 97
+
+   27 identifiers: IDENTIFIER .
+
+    $default  reduce using rule 27 (identifiers)
+
+
+State 98
+
+   26 var_decl: type identifiers . SEMICOLON
+   28 identifiers: identifiers . COMMA IDENTIFIER
+
+    SEMICOLON  shift, and go to state 124
+    COMMA      shift, and go to state 35
+
+
+State 99
+
+   33 statement: IF OPEN_PARANTHESIS expr . CLOSE_PARANTHESIS block ELSE block
+   34          | IF OPEN_PARANTHESIS expr . CLOSE_PARANTHESIS block
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
+
+    CLOSE_PARANTHESIS  shift, and go to state 125
+    OR                 shift, and go to state 106
+    AND                shift, and go to state 107
+    EQUALEQUAL         shift, and go to state 108
+    NOTEQUAL           shift, and go to state 109
+    LESSEQUAL          shift, and go to state 110
+    LESSTHAN           shift, and go to state 111
+    GREATEREQUAL       shift, and go to state 112
+    GREATERTHAN        shift, and go to state 113
+    PLUS               shift, and go to state 114
+    MINUS              shift, and go to state 115
+    MULTIPLY           shift, and go to state 116
+    DIVIDE             shift, and go to state 117
+    MODULO             shift, and go to state 118
+
+
+State 100
+
+   35 statement: FOR IDENTIFIER EQUAL . expr COMMA expr block
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 126
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 101
+
+   42 method_call: CALLOUT OPEN_PARANTHESIS STRING_VALUE . CLOSE_PARANTHESIS
+   43            | CALLOUT OPEN_PARANTHESIS STRING_VALUE . callout_args CLOSE_PARANTHESIS
+
+    COMMA              shift, and go to state 127
+    CLOSE_PARANTHESIS  shift, and go to state 128
+
+    callout_args  go to state 129
+
+
+State 102
+
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
+   67     | OPEN_PARANTHESIS expr . CLOSE_PARANTHESIS
+
+    CLOSE_PARANTHESIS  shift, and go to state 130
+    OR                 shift, and go to state 106
+    AND                shift, and go to state 107
+    EQUALEQUAL         shift, and go to state 108
+    NOTEQUAL           shift, and go to state 109
+    LESSEQUAL          shift, and go to state 110
+    LESSTHAN           shift, and go to state 111
+    GREATEREQUAL       shift, and go to state 112
+    GREATERTHAN        shift, and go to state 113
+    PLUS               shift, and go to state 114
+    MINUS              shift, and go to state 115
+    MULTIPLY           shift, and go to state 116
+    DIVIDE             shift, and go to state 117
+    MODULO             shift, and go to state 118
+
+
+State 103
+
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
+   65     | MINUS expr .
+
+    MULTIPLY  shift, and go to state 116
+    DIVIDE    shift, and go to state 117
+    MODULO    shift, and go to state 118
+
+    $default  reduce using rule 65 (expr)
+
+
+State 104
+
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
+   66     | NOT expr .
+
+    $default  reduce using rule 66 (expr)
+
+
+State 105
+
+   36 statement: RETURN expr SEMICOLON .
+
+    $default  reduce using rule 36 (statement)
+
+
+State 106
+
+   52 expr: expr OR . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 131
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 107
+
+   53 expr: expr AND . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 132
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 108
+
+   54 expr: expr EQUALEQUAL . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 133
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 109
+
+   55 expr: expr NOTEQUAL . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 134
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 110
+
+   57 expr: expr LESSEQUAL . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 135
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 111
+
+   56 expr: expr LESSTHAN . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 136
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 112
+
+   59 expr: expr GREATEREQUAL . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 137
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 113
+
+   58 expr: expr GREATERTHAN . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 138
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 114
+
+   60 expr: expr PLUS . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 139
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 115
+
+   61 expr: expr MINUS . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 140
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 116
+
+   62 expr: expr MULTIPLY . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 141
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 117
+
+   63 expr: expr DIVIDE . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 142
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 118
+
+   64 expr: expr MODULO . expr
+
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
+
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 143
+    literal      go to state 83
+    bool_value   go to state 84
+
+
+State 119
+
+   48 location: IDENTIFIER OPEN_SQUAREBRACKET expr . CLOSE_SQUAREBRACKET
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
+
+    CLOSE_SQUAREBRACKET  shift, and go to state 144
+    OR                   shift, and go to state 106
+    AND                  shift, and go to state 107
+    EQUALEQUAL           shift, and go to state 108
+    NOTEQUAL             shift, and go to state 109
+    LESSEQUAL            shift, and go to state 110
+    LESSTHAN             shift, and go to state 111
+    GREATEREQUAL         shift, and go to state 112
+    GREATERTHAN          shift, and go to state 113
+    PLUS                 shift, and go to state 114
+    MINUS                shift, and go to state 115
+    MULTIPLY             shift, and go to state 116
+    DIVIDE               shift, and go to state 117
+    MODULO               shift, and go to state 118
+
+
+State 120
 
    20 block: OPEN_CURLYBRACE var_decls statements CLOSE_CURLYBRACE .
 
     $default  reduce using rule 20 (block)
 
 
-State 89
-
-   27 statements: statement statements .
-
-    $default  reduce using rule 27 (statements)
-
-
-State 90
-
-   29 statement: method_call SEMICOLON .
-
-    $default  reduce using rule 29 (statement)
-
-
-State 91
-
-   38 method_call: method_name OPEN_PARANTHESIS . exprs CLOSE_PARANTHESIS
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    exprs        go to state 118
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 119
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 92
-
-   69 assign_op: EQUAL .
-
-    $default  reduce using rule 69 (assign_op)
-
-
-State 93
-
-   70 assign_op: PLUSEQUAL .
-
-    $default  reduce using rule 70 (assign_op)
-
-
-State 94
-
-   71 assign_op: MINUSEQUAL .
-
-    $default  reduce using rule 71 (assign_op)
-
-
-State 95
-
-   28 statement: location assign_op . expr SEMICOLON
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 120
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 96
-
-   23 var_decl: type identifiers SEMICOLON .
-
-    $default  reduce using rule 23 (var_decl)
-
-
-State 97
-
-   30 statement: IF OPEN_PARANTHESIS expr . CLOSE_PARANTHESIS block ELSE block
-   31          | IF OPEN_PARANTHESIS expr . CLOSE_PARANTHESIS block
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-
-    CLOSE_PARANTHESIS  shift, and go to state 121
-    OR                 shift, and go to state 104
-    AND                shift, and go to state 105
-    EQUALEQUAL         shift, and go to state 106
-    NOTEQUAL           shift, and go to state 107
-    LESSEQUAL          shift, and go to state 108
-    LESSTHAN           shift, and go to state 109
-    GREATEREQUAL       shift, and go to state 110
-    GREATERTHAN        shift, and go to state 111
-    PLUS               shift, and go to state 112
-    MINUS              shift, and go to state 113
-    MULTIPLY           shift, and go to state 114
-    DIVIDE             shift, and go to state 115
-    MODULO             shift, and go to state 116
-
-
-State 98
-
-   32 statement: FOR IDENTIFIER EQUAL . expr COMMA expr block
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 122
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 99
-
-   39 method_call: CALLOUT OPEN_PARANTHESIS STRING_VALUE . CLOSE_PARANTHESIS
-   40            | CALLOUT OPEN_PARANTHESIS STRING_VALUE . callout_args CLOSE_PARANTHESIS
-
-    COMMA              shift, and go to state 123
-    CLOSE_PARANTHESIS  shift, and go to state 124
-
-    callout_args  go to state 125
-
-
-State 100
-
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-   64     | OPEN_PARANTHESIS expr . CLOSE_PARANTHESIS
-
-    CLOSE_PARANTHESIS  shift, and go to state 126
-    OR                 shift, and go to state 104
-    AND                shift, and go to state 105
-    EQUALEQUAL         shift, and go to state 106
-    NOTEQUAL           shift, and go to state 107
-    LESSEQUAL          shift, and go to state 108
-    LESSTHAN           shift, and go to state 109
-    GREATEREQUAL       shift, and go to state 110
-    GREATERTHAN        shift, and go to state 111
-    PLUS               shift, and go to state 112
-    MINUS              shift, and go to state 113
-    MULTIPLY           shift, and go to state 114
-    DIVIDE             shift, and go to state 115
-    MODULO             shift, and go to state 116
-
-
-State 101
-
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-   62     | MINUS expr .
-
-    MULTIPLY  shift, and go to state 114
-    DIVIDE    shift, and go to state 115
-    MODULO    shift, and go to state 116
-
-    $default  reduce using rule 62 (expr)
-
-
-State 102
-
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-   63     | NOT expr .
-
-    $default  reduce using rule 63 (expr)
-
-
-State 103
-
-   33 statement: RETURN expr SEMICOLON .
-
-    $default  reduce using rule 33 (statement)
-
-
-State 104
-
-   49 expr: expr OR . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 127
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 105
-
-   50 expr: expr AND . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 128
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 106
-
-   51 expr: expr EQUALEQUAL . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 129
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 107
-
-   52 expr: expr NOTEQUAL . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 130
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 108
-
-   54 expr: expr LESSEQUAL . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 131
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 109
-
-   53 expr: expr LESSTHAN . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 132
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 110
-
-   56 expr: expr GREATEREQUAL . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 133
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 111
-
-   55 expr: expr GREATERTHAN . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 134
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 112
-
-   57 expr: expr PLUS . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 135
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 113
-
-   58 expr: expr MINUS . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 136
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 114
-
-   59 expr: expr MULTIPLY . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 137
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 115
-
-   60 expr: expr DIVIDE . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 138
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 116
-
-   61 expr: expr MODULO . expr
-
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 139
-    literal      go to state 85
-    bool_value   go to state 86
-
-
-State 117
-
-   45 location: IDENTIFIER OPEN_SQUAREBRACKET expr . CLOSE_SQUAREBRACKET
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-
-    CLOSE_SQUAREBRACKET  shift, and go to state 140
-    OR                   shift, and go to state 104
-    AND                  shift, and go to state 105
-    EQUALEQUAL           shift, and go to state 106
-    NOTEQUAL             shift, and go to state 107
-    LESSEQUAL            shift, and go to state 108
-    LESSTHAN             shift, and go to state 109
-    GREATEREQUAL         shift, and go to state 110
-    GREATERTHAN          shift, and go to state 111
-    PLUS                 shift, and go to state 112
-    MINUS                shift, and go to state 113
-    MULTIPLY             shift, and go to state 114
-    DIVIDE               shift, and go to state 115
-    MODULO               shift, and go to state 116
-
-
-State 118
-
-   38 method_call: method_name OPEN_PARANTHESIS exprs . CLOSE_PARANTHESIS
-   42 exprs: exprs . COMMA expr
-
-    COMMA              shift, and go to state 141
-    CLOSE_PARANTHESIS  shift, and go to state 142
-
-
-State 119
-
-   41 exprs: expr .
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-
-    OR            shift, and go to state 104
-    AND           shift, and go to state 105
-    EQUALEQUAL    shift, and go to state 106
-    NOTEQUAL      shift, and go to state 107
-    LESSEQUAL     shift, and go to state 108
-    LESSTHAN      shift, and go to state 109
-    GREATEREQUAL  shift, and go to state 110
-    GREATERTHAN   shift, and go to state 111
-    PLUS          shift, and go to state 112
-    MINUS         shift, and go to state 113
-    MULTIPLY      shift, and go to state 114
-    DIVIDE        shift, and go to state 115
-    MODULO        shift, and go to state 116
-
-    $default  reduce using rule 41 (exprs)
-
-
-State 120
-
-   28 statement: location assign_op expr . SEMICOLON
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-
-    SEMICOLON     shift, and go to state 143
-    OR            shift, and go to state 104
-    AND           shift, and go to state 105
-    EQUALEQUAL    shift, and go to state 106
-    NOTEQUAL      shift, and go to state 107
-    LESSEQUAL     shift, and go to state 108
-    LESSTHAN      shift, and go to state 109
-    GREATEREQUAL  shift, and go to state 110
-    GREATERTHAN   shift, and go to state 111
-    PLUS          shift, and go to state 112
-    MINUS         shift, and go to state 113
-    MULTIPLY      shift, and go to state 114
-    DIVIDE        shift, and go to state 115
-    MODULO        shift, and go to state 116
-
-
 State 121
 
-   30 statement: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS . block ELSE block
-   31          | IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS . block
+   41 method_call: method_name OPEN_PARANTHESIS exprs . CLOSE_PARANTHESIS
+   45 exprs: exprs . COMMA expr
 
-    OPEN_CURLYBRACE  shift, and go to state 48
-
-    block  go to state 144
+    COMMA              shift, and go to state 145
+    CLOSE_PARANTHESIS  shift, and go to state 146
 
 
 State 122
 
-   32 statement: FOR IDENTIFIER EQUAL expr . COMMA expr block
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   44 exprs: expr .
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    COMMA         shift, and go to state 145
-    OR            shift, and go to state 104
-    AND           shift, and go to state 105
-    EQUALEQUAL    shift, and go to state 106
-    NOTEQUAL      shift, and go to state 107
-    LESSEQUAL     shift, and go to state 108
-    LESSTHAN      shift, and go to state 109
-    GREATEREQUAL  shift, and go to state 110
-    GREATERTHAN   shift, and go to state 111
-    PLUS          shift, and go to state 112
-    MINUS         shift, and go to state 113
-    MULTIPLY      shift, and go to state 114
-    DIVIDE        shift, and go to state 115
-    MODULO        shift, and go to state 116
+    OR            shift, and go to state 106
+    AND           shift, and go to state 107
+    EQUALEQUAL    shift, and go to state 108
+    NOTEQUAL      shift, and go to state 109
+    LESSEQUAL     shift, and go to state 110
+    LESSTHAN      shift, and go to state 111
+    GREATEREQUAL  shift, and go to state 112
+    GREATERTHAN   shift, and go to state 113
+    PLUS          shift, and go to state 114
+    MINUS         shift, and go to state 115
+    MULTIPLY      shift, and go to state 116
+    DIVIDE        shift, and go to state 117
+    MODULO        shift, and go to state 118
+
+    $default  reduce using rule 44 (exprs)
 
 
 State 123
 
-   65 callout_args: COMMA . callout_arg
+   31 statement: location assign_op expr . SEMICOLON
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    STRING_VALUE      shift, and go to state 146
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 147
-    callout_arg  go to state 148
-    literal      go to state 85
-    bool_value   go to state 86
+    SEMICOLON     shift, and go to state 147
+    OR            shift, and go to state 106
+    AND           shift, and go to state 107
+    EQUALEQUAL    shift, and go to state 108
+    NOTEQUAL      shift, and go to state 109
+    LESSEQUAL     shift, and go to state 110
+    LESSTHAN      shift, and go to state 111
+    GREATEREQUAL  shift, and go to state 112
+    GREATERTHAN   shift, and go to state 113
+    PLUS          shift, and go to state 114
+    MINUS         shift, and go to state 115
+    MULTIPLY      shift, and go to state 116
+    DIVIDE        shift, and go to state 117
+    MODULO        shift, and go to state 118
 
 
 State 124
 
-   39 method_call: CALLOUT OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS .
+   26 var_decl: type identifiers SEMICOLON .
 
-    $default  reduce using rule 39 (method_call)
+    $default  reduce using rule 26 (var_decl)
 
 
 State 125
 
-   40 method_call: CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args . CLOSE_PARANTHESIS
-   66 callout_args: callout_args . COMMA callout_arg
+   33 statement: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS . block ELSE block
+   34          | IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS . block
 
-    COMMA              shift, and go to state 149
-    CLOSE_PARANTHESIS  shift, and go to state 150
+    OPEN_CURLYBRACE  shift, and go to state 48
+
+    block  go to state 148
 
 
 State 126
 
-   64 expr: OPEN_PARANTHESIS expr CLOSE_PARANTHESIS .
+   35 statement: FOR IDENTIFIER EQUAL expr . COMMA expr block
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    $default  reduce using rule 64 (expr)
+    COMMA         shift, and go to state 149
+    OR            shift, and go to state 106
+    AND           shift, and go to state 107
+    EQUALEQUAL    shift, and go to state 108
+    NOTEQUAL      shift, and go to state 109
+    LESSEQUAL     shift, and go to state 110
+    LESSTHAN      shift, and go to state 111
+    GREATEREQUAL  shift, and go to state 112
+    GREATERTHAN   shift, and go to state 113
+    PLUS          shift, and go to state 114
+    MINUS         shift, and go to state 115
+    MULTIPLY      shift, and go to state 116
+    DIVIDE        shift, and go to state 117
+    MODULO        shift, and go to state 118
 
 
 State 127
 
-   49 expr: expr . OR expr
-   49     | expr OR expr .
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   68 callout_args: COMMA . callout_arg
 
-    AND           shift, and go to state 105
-    EQUALEQUAL    shift, and go to state 106
-    NOTEQUAL      shift, and go to state 107
-    LESSEQUAL     shift, and go to state 108
-    LESSTHAN      shift, and go to state 109
-    GREATEREQUAL  shift, and go to state 110
-    GREATERTHAN   shift, and go to state 111
-    PLUS          shift, and go to state 112
-    MINUS         shift, and go to state 113
-    MULTIPLY      shift, and go to state 114
-    DIVIDE        shift, and go to state 115
-    MODULO        shift, and go to state 116
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    STRING_VALUE      shift, and go to state 150
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
 
-    $default  reduce using rule 49 (expr)
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 151
+    callout_arg  go to state 152
+    literal      go to state 83
+    bool_value   go to state 84
 
 
 State 128
 
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   50     | expr AND expr .
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   42 method_call: CALLOUT OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS .
 
-    EQUALEQUAL    shift, and go to state 106
-    NOTEQUAL      shift, and go to state 107
-    LESSEQUAL     shift, and go to state 108
-    LESSTHAN      shift, and go to state 109
-    GREATEREQUAL  shift, and go to state 110
-    GREATERTHAN   shift, and go to state 111
-    PLUS          shift, and go to state 112
-    MINUS         shift, and go to state 113
-    MULTIPLY      shift, and go to state 114
-    DIVIDE        shift, and go to state 115
-    MODULO        shift, and go to state 116
-
-    $default  reduce using rule 50 (expr)
+    $default  reduce using rule 42 (method_call)
 
 
 State 129
 
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   51     | expr EQUALEQUAL expr .
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   43 method_call: CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args . CLOSE_PARANTHESIS
+   69 callout_args: callout_args . COMMA callout_arg
 
-    LESSEQUAL     shift, and go to state 108
-    LESSTHAN      shift, and go to state 109
-    GREATEREQUAL  shift, and go to state 110
-    GREATERTHAN   shift, and go to state 111
-    PLUS          shift, and go to state 112
-    MINUS         shift, and go to state 113
-    MULTIPLY      shift, and go to state 114
-    DIVIDE        shift, and go to state 115
-    MODULO        shift, and go to state 116
-
-    $default  reduce using rule 51 (expr)
+    COMMA              shift, and go to state 153
+    CLOSE_PARANTHESIS  shift, and go to state 154
 
 
 State 130
 
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   52     | expr NOTEQUAL expr .
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   67 expr: OPEN_PARANTHESIS expr CLOSE_PARANTHESIS .
 
-    LESSEQUAL     shift, and go to state 108
-    LESSTHAN      shift, and go to state 109
-    GREATEREQUAL  shift, and go to state 110
-    GREATERTHAN   shift, and go to state 111
-    PLUS          shift, and go to state 112
-    MINUS         shift, and go to state 113
-    MULTIPLY      shift, and go to state 114
-    DIVIDE        shift, and go to state 115
-    MODULO        shift, and go to state 116
-
-    $default  reduce using rule 52 (expr)
+    $default  reduce using rule 67 (expr)
 
 
 State 131
 
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   54     | expr LESSEQUAL expr .
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   52 expr: expr . OR expr
+   52     | expr OR expr .
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    PLUS      shift, and go to state 112
-    MINUS     shift, and go to state 113
-    MULTIPLY  shift, and go to state 114
-    DIVIDE    shift, and go to state 115
-    MODULO    shift, and go to state 116
+    AND           shift, and go to state 107
+    EQUALEQUAL    shift, and go to state 108
+    NOTEQUAL      shift, and go to state 109
+    LESSEQUAL     shift, and go to state 110
+    LESSTHAN      shift, and go to state 111
+    GREATEREQUAL  shift, and go to state 112
+    GREATERTHAN   shift, and go to state 113
+    PLUS          shift, and go to state 114
+    MINUS         shift, and go to state 115
+    MULTIPLY      shift, and go to state 116
+    DIVIDE        shift, and go to state 117
+    MODULO        shift, and go to state 118
 
-    LESSEQUAL     error (nonassociative)
-    LESSTHAN      error (nonassociative)
-    GREATEREQUAL  error (nonassociative)
-    GREATERTHAN   error (nonassociative)
-
-    $default  reduce using rule 54 (expr)
+    $default  reduce using rule 52 (expr)
 
 
 State 132
 
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   53     | expr LESSTHAN expr .
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   53     | expr AND expr .
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    PLUS      shift, and go to state 112
-    MINUS     shift, and go to state 113
-    MULTIPLY  shift, and go to state 114
-    DIVIDE    shift, and go to state 115
-    MODULO    shift, and go to state 116
-
-    LESSEQUAL     error (nonassociative)
-    LESSTHAN      error (nonassociative)
-    GREATEREQUAL  error (nonassociative)
-    GREATERTHAN   error (nonassociative)
+    EQUALEQUAL    shift, and go to state 108
+    NOTEQUAL      shift, and go to state 109
+    LESSEQUAL     shift, and go to state 110
+    LESSTHAN      shift, and go to state 111
+    GREATEREQUAL  shift, and go to state 112
+    GREATERTHAN   shift, and go to state 113
+    PLUS          shift, and go to state 114
+    MINUS         shift, and go to state 115
+    MULTIPLY      shift, and go to state 116
+    DIVIDE        shift, and go to state 117
+    MODULO        shift, and go to state 118
 
     $default  reduce using rule 53 (expr)
 
 
 State 133
 
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   56     | expr GREATEREQUAL expr .
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   54     | expr EQUALEQUAL expr .
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    PLUS      shift, and go to state 112
-    MINUS     shift, and go to state 113
-    MULTIPLY  shift, and go to state 114
-    DIVIDE    shift, and go to state 115
-    MODULO    shift, and go to state 116
+    LESSEQUAL     shift, and go to state 110
+    LESSTHAN      shift, and go to state 111
+    GREATEREQUAL  shift, and go to state 112
+    GREATERTHAN   shift, and go to state 113
+    PLUS          shift, and go to state 114
+    MINUS         shift, and go to state 115
+    MULTIPLY      shift, and go to state 116
+    DIVIDE        shift, and go to state 117
+    MODULO        shift, and go to state 118
+
+    $default  reduce using rule 54 (expr)
+
+
+State 134
+
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   55     | expr NOTEQUAL expr .
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
+
+    LESSEQUAL     shift, and go to state 110
+    LESSTHAN      shift, and go to state 111
+    GREATEREQUAL  shift, and go to state 112
+    GREATERTHAN   shift, and go to state 113
+    PLUS          shift, and go to state 114
+    MINUS         shift, and go to state 115
+    MULTIPLY      shift, and go to state 116
+    DIVIDE        shift, and go to state 117
+    MODULO        shift, and go to state 118
+
+    $default  reduce using rule 55 (expr)
+
+
+State 135
+
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   57     | expr LESSEQUAL expr .
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
+
+    PLUS      shift, and go to state 114
+    MINUS     shift, and go to state 115
+    MULTIPLY  shift, and go to state 116
+    DIVIDE    shift, and go to state 117
+    MODULO    shift, and go to state 118
+
+    LESSEQUAL     error (nonassociative)
+    LESSTHAN      error (nonassociative)
+    GREATEREQUAL  error (nonassociative)
+    GREATERTHAN   error (nonassociative)
+
+    $default  reduce using rule 57 (expr)
+
+
+State 136
+
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   56     | expr LESSTHAN expr .
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
+
+    PLUS      shift, and go to state 114
+    MINUS     shift, and go to state 115
+    MULTIPLY  shift, and go to state 116
+    DIVIDE    shift, and go to state 117
+    MODULO    shift, and go to state 118
 
     LESSEQUAL     error (nonassociative)
     LESSTHAN      error (nonassociative)
@@ -2042,393 +2062,424 @@ State 133
     $default  reduce using rule 56 (expr)
 
 
-State 134
+State 137
 
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   55     | expr GREATERTHAN expr .
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   59     | expr GREATEREQUAL expr .
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    PLUS      shift, and go to state 112
-    MINUS     shift, and go to state 113
-    MULTIPLY  shift, and go to state 114
-    DIVIDE    shift, and go to state 115
-    MODULO    shift, and go to state 116
+    PLUS      shift, and go to state 114
+    MINUS     shift, and go to state 115
+    MULTIPLY  shift, and go to state 116
+    DIVIDE    shift, and go to state 117
+    MODULO    shift, and go to state 118
 
     LESSEQUAL     error (nonassociative)
     LESSTHAN      error (nonassociative)
     GREATEREQUAL  error (nonassociative)
     GREATERTHAN   error (nonassociative)
 
-    $default  reduce using rule 55 (expr)
-
-
-State 135
-
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   57     | expr PLUS expr .
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-
-    MULTIPLY  shift, and go to state 114
-    DIVIDE    shift, and go to state 115
-    MODULO    shift, and go to state 116
-
-    $default  reduce using rule 57 (expr)
-
-
-State 136
-
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   58     | expr MINUS expr .
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-
-    MULTIPLY  shift, and go to state 114
-    DIVIDE    shift, and go to state 115
-    MODULO    shift, and go to state 116
-
-    $default  reduce using rule 58 (expr)
-
-
-State 137
-
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   59     | expr MULTIPLY expr .
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-
     $default  reduce using rule 59 (expr)
 
 
 State 138
 
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   60     | expr DIVIDE expr .
-   61     | expr . MODULO expr
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   58     | expr GREATERTHAN expr .
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    $default  reduce using rule 60 (expr)
+    PLUS      shift, and go to state 114
+    MINUS     shift, and go to state 115
+    MULTIPLY  shift, and go to state 116
+    DIVIDE    shift, and go to state 117
+    MODULO    shift, and go to state 118
+
+    LESSEQUAL     error (nonassociative)
+    LESSTHAN      error (nonassociative)
+    GREATEREQUAL  error (nonassociative)
+    GREATERTHAN   error (nonassociative)
+
+    $default  reduce using rule 58 (expr)
 
 
 State 139
 
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-   61     | expr MODULO expr .
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   60     | expr PLUS expr .
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    $default  reduce using rule 61 (expr)
+    MULTIPLY  shift, and go to state 116
+    DIVIDE    shift, and go to state 117
+    MODULO    shift, and go to state 118
+
+    $default  reduce using rule 60 (expr)
 
 
 State 140
 
-   45 location: IDENTIFIER OPEN_SQUAREBRACKET expr CLOSE_SQUAREBRACKET .
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   61     | expr MINUS expr .
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    $default  reduce using rule 45 (location)
+    MULTIPLY  shift, and go to state 116
+    DIVIDE    shift, and go to state 117
+    MODULO    shift, and go to state 118
+
+    $default  reduce using rule 61 (expr)
 
 
 State 141
 
-   42 exprs: exprs COMMA . expr
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   62     | expr MULTIPLY expr .
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
-
-    method_call  go to state 82
-    method_name  go to state 64
-    location     go to state 83
-    expr         go to state 151
-    literal      go to state 85
-    bool_value   go to state 86
+    $default  reduce using rule 62 (expr)
 
 
 State 142
 
-   38 method_call: method_name OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS .
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   63     | expr DIVIDE expr .
+   64     | expr . MODULO expr
 
-    $default  reduce using rule 38 (method_call)
+    $default  reduce using rule 63 (expr)
 
 
 State 143
 
-   28 statement: location assign_op expr SEMICOLON .
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
+   64     | expr MODULO expr .
 
-    $default  reduce using rule 28 (statement)
+    $default  reduce using rule 64 (expr)
 
 
 State 144
 
-   30 statement: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block . ELSE block
-   31          | IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block .
+   48 location: IDENTIFIER OPEN_SQUAREBRACKET expr CLOSE_SQUAREBRACKET .
 
-    ELSE  shift, and go to state 152
-
-    $default  reduce using rule 31 (statement)
+    $default  reduce using rule 48 (location)
 
 
 State 145
 
-   32 statement: FOR IDENTIFIER EQUAL expr COMMA . expr block
+   45 exprs: exprs COMMA . expr
 
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
 
-    method_call  go to state 82
+    method_call  go to state 80
     method_name  go to state 64
-    location     go to state 83
-    expr         go to state 153
-    literal      go to state 85
-    bool_value   go to state 86
+    location     go to state 81
+    expr         go to state 155
+    literal      go to state 83
+    bool_value   go to state 84
 
 
 State 146
 
-   68 callout_arg: STRING_VALUE .
+   41 method_call: method_name OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS .
 
-    $default  reduce using rule 68 (callout_arg)
+    $default  reduce using rule 41 (method_call)
 
 
 State 147
 
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
-   67 callout_arg: expr .
+   31 statement: location assign_op expr SEMICOLON .
 
-    OR            shift, and go to state 104
-    AND           shift, and go to state 105
-    EQUALEQUAL    shift, and go to state 106
-    NOTEQUAL      shift, and go to state 107
-    LESSEQUAL     shift, and go to state 108
-    LESSTHAN      shift, and go to state 109
-    GREATEREQUAL  shift, and go to state 110
-    GREATERTHAN   shift, and go to state 111
-    PLUS          shift, and go to state 112
-    MINUS         shift, and go to state 113
-    MULTIPLY      shift, and go to state 114
-    DIVIDE        shift, and go to state 115
-    MODULO        shift, and go to state 116
-
-    $default  reduce using rule 67 (callout_arg)
+    $default  reduce using rule 31 (statement)
 
 
 State 148
 
-   65 callout_args: COMMA callout_arg .
+   33 statement: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block . ELSE block
+   34          | IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block .
 
-    $default  reduce using rule 65 (callout_args)
+    ELSE  shift, and go to state 156
+
+    $default  reduce using rule 34 (statement)
 
 
 State 149
 
-   66 callout_args: callout_args COMMA . callout_arg
+   35 statement: FOR IDENTIFIER EQUAL expr COMMA . expr block
 
-    OPEN_PARANTHESIS  shift, and go to state 75
-    CALLOUT           shift, and go to state 57
-    FALSE             shift, and go to state 76
-    TRUE              shift, and go to state 77
-    IDENTIFIER        shift, and go to state 59
-    STRING_VALUE      shift, and go to state 146
-    CHAR_VALUE        shift, and go to state 78
-    INT_VALUE         shift, and go to state 79
-    MINUS             shift, and go to state 80
-    NOT               shift, and go to state 81
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
 
-    method_call  go to state 82
+    method_call  go to state 80
     method_name  go to state 64
-    location     go to state 83
-    expr         go to state 147
-    callout_arg  go to state 154
-    literal      go to state 85
-    bool_value   go to state 86
+    location     go to state 81
+    expr         go to state 157
+    literal      go to state 83
+    bool_value   go to state 84
 
 
 State 150
 
-   40 method_call: CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS .
+   71 callout_arg: STRING_VALUE .
 
-    $default  reduce using rule 40 (method_call)
+    $default  reduce using rule 71 (callout_arg)
 
 
 State 151
 
-   42 exprs: exprs COMMA expr .
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
+   70 callout_arg: expr .
 
-    OR            shift, and go to state 104
-    AND           shift, and go to state 105
-    EQUALEQUAL    shift, and go to state 106
-    NOTEQUAL      shift, and go to state 107
-    LESSEQUAL     shift, and go to state 108
-    LESSTHAN      shift, and go to state 109
-    GREATEREQUAL  shift, and go to state 110
-    GREATERTHAN   shift, and go to state 111
-    PLUS          shift, and go to state 112
-    MINUS         shift, and go to state 113
-    MULTIPLY      shift, and go to state 114
-    DIVIDE        shift, and go to state 115
-    MODULO        shift, and go to state 116
+    OR            shift, and go to state 106
+    AND           shift, and go to state 107
+    EQUALEQUAL    shift, and go to state 108
+    NOTEQUAL      shift, and go to state 109
+    LESSEQUAL     shift, and go to state 110
+    LESSTHAN      shift, and go to state 111
+    GREATEREQUAL  shift, and go to state 112
+    GREATERTHAN   shift, and go to state 113
+    PLUS          shift, and go to state 114
+    MINUS         shift, and go to state 115
+    MULTIPLY      shift, and go to state 116
+    DIVIDE        shift, and go to state 117
+    MODULO        shift, and go to state 118
 
-    $default  reduce using rule 42 (exprs)
+    $default  reduce using rule 70 (callout_arg)
 
 
 State 152
 
-   30 statement: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE . block
+   68 callout_args: COMMA callout_arg .
 
-    OPEN_CURLYBRACE  shift, and go to state 48
-
-    block  go to state 155
+    $default  reduce using rule 68 (callout_args)
 
 
 State 153
 
-   32 statement: FOR IDENTIFIER EQUAL expr COMMA expr . block
-   49 expr: expr . OR expr
-   50     | expr . AND expr
-   51     | expr . EQUALEQUAL expr
-   52     | expr . NOTEQUAL expr
-   53     | expr . LESSTHAN expr
-   54     | expr . LESSEQUAL expr
-   55     | expr . GREATERTHAN expr
-   56     | expr . GREATEREQUAL expr
-   57     | expr . PLUS expr
-   58     | expr . MINUS expr
-   59     | expr . MULTIPLY expr
-   60     | expr . DIVIDE expr
-   61     | expr . MODULO expr
+   69 callout_args: callout_args COMMA . callout_arg
 
-    OPEN_CURLYBRACE  shift, and go to state 48
-    OR               shift, and go to state 104
-    AND              shift, and go to state 105
-    EQUALEQUAL       shift, and go to state 106
-    NOTEQUAL         shift, and go to state 107
-    LESSEQUAL        shift, and go to state 108
-    LESSTHAN         shift, and go to state 109
-    GREATEREQUAL     shift, and go to state 110
-    GREATERTHAN      shift, and go to state 111
-    PLUS             shift, and go to state 112
-    MINUS            shift, and go to state 113
-    MULTIPLY         shift, and go to state 114
-    DIVIDE           shift, and go to state 115
-    MODULO           shift, and go to state 116
+    OPEN_PARANTHESIS  shift, and go to state 73
+    CALLOUT           shift, and go to state 55
+    FALSE             shift, and go to state 74
+    TRUE              shift, and go to state 75
+    IDENTIFIER        shift, and go to state 57
+    STRING_VALUE      shift, and go to state 150
+    CHAR_VALUE        shift, and go to state 76
+    INT_VALUE         shift, and go to state 77
+    MINUS             shift, and go to state 78
+    NOT               shift, and go to state 79
 
-    block  go to state 156
+    method_call  go to state 80
+    method_name  go to state 64
+    location     go to state 81
+    expr         go to state 151
+    callout_arg  go to state 158
+    literal      go to state 83
+    bool_value   go to state 84
 
 
 State 154
 
-   66 callout_args: callout_args COMMA callout_arg .
+   43 method_call: CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS .
 
-    $default  reduce using rule 66 (callout_args)
+    $default  reduce using rule 43 (method_call)
 
 
 State 155
 
-   30 statement: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE block .
+   45 exprs: exprs COMMA expr .
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
 
-    $default  reduce using rule 30 (statement)
+    OR            shift, and go to state 106
+    AND           shift, and go to state 107
+    EQUALEQUAL    shift, and go to state 108
+    NOTEQUAL      shift, and go to state 109
+    LESSEQUAL     shift, and go to state 110
+    LESSTHAN      shift, and go to state 111
+    GREATEREQUAL  shift, and go to state 112
+    GREATERTHAN   shift, and go to state 113
+    PLUS          shift, and go to state 114
+    MINUS         shift, and go to state 115
+    MULTIPLY      shift, and go to state 116
+    DIVIDE        shift, and go to state 117
+    MODULO        shift, and go to state 118
+
+    $default  reduce using rule 45 (exprs)
 
 
 State 156
 
-   32 statement: FOR IDENTIFIER EQUAL expr COMMA expr block .
+   33 statement: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE . block
 
-    $default  reduce using rule 32 (statement)
+    OPEN_CURLYBRACE  shift, and go to state 48
+
+    block  go to state 159
+
+
+State 157
+
+   35 statement: FOR IDENTIFIER EQUAL expr COMMA expr . block
+   52 expr: expr . OR expr
+   53     | expr . AND expr
+   54     | expr . EQUALEQUAL expr
+   55     | expr . NOTEQUAL expr
+   56     | expr . LESSTHAN expr
+   57     | expr . LESSEQUAL expr
+   58     | expr . GREATERTHAN expr
+   59     | expr . GREATEREQUAL expr
+   60     | expr . PLUS expr
+   61     | expr . MINUS expr
+   62     | expr . MULTIPLY expr
+   63     | expr . DIVIDE expr
+   64     | expr . MODULO expr
+
+    OPEN_CURLYBRACE  shift, and go to state 48
+    OR               shift, and go to state 106
+    AND              shift, and go to state 107
+    EQUALEQUAL       shift, and go to state 108
+    NOTEQUAL         shift, and go to state 109
+    LESSEQUAL        shift, and go to state 110
+    LESSTHAN         shift, and go to state 111
+    GREATEREQUAL     shift, and go to state 112
+    GREATERTHAN      shift, and go to state 113
+    PLUS             shift, and go to state 114
+    MINUS            shift, and go to state 115
+    MULTIPLY         shift, and go to state 116
+    DIVIDE           shift, and go to state 117
+    MODULO           shift, and go to state 118
+
+    block  go to state 160
+
+
+State 158
+
+   69 callout_args: callout_args COMMA callout_arg .
+
+    $default  reduce using rule 69 (callout_args)
+
+
+State 159
+
+   33 statement: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE block .
+
+    $default  reduce using rule 33 (statement)
+
+
+State 160
+
+   35 statement: FOR IDENTIFIER EQUAL expr COMMA expr block .
+
+    $default  reduce using rule 35 (statement)
