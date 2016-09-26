@@ -56,19 +56,20 @@ using namespace std;
 %precedence NOT
 
 %%
-    program: CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE
-            field_decls
-               method_decls CLOSE_CURLYBRACE
+    program: CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE field_decls method_decls CLOSE_CURLYBRACE
+        |    CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE field_decls CLOSE_CURLYBRACE
+        |    CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE method_decls CLOSE_CURLYBRACE
+        |    CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE CLOSE_CURLYBRACE
                 {
                    // Check if Identifier is Program
                 //    if($2 == "Program")
                         cout << "Program encountered" << endl;
-
                 }
     field_decls :  field_decl
-               |   field_decl field_decls
+               |   field_decls field_decl
     field_decl :    type identifiers_arrs SEMICOLON
-                |   type identifiers SEMICOLON          
+                |   type identifiers SEMICOLON
+
     identifiers_arrs : identifiers_arr
                     |  identifiers_arrs COMMA identifiers_arr
     identifiers_arr : IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET
