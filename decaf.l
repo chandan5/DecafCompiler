@@ -165,5 +165,5 @@ false {
 ; {
     return SEMICOLON;
 }
-. {++error_count;}
+. {++error_count; cerr << "Something went wrong" << endl;}
 %%

@@ -56,10 +56,10 @@ using namespace std;
 %precedence NOT
 
 %%
-    program: CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE field_decls method_decls CLOSE_CURLYBRACE
-        |    CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE field_decls CLOSE_CURLYBRACE
-        |    CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE method_decls CLOSE_CURLYBRACE
-        |    CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE CLOSE_CURLYBRACE
+    program: CLASS IDENTIFIER OPEN_CURLYBRACE field_decls method_decls CLOSE_CURLYBRACE
+        |    CLASS IDENTIFIER OPEN_CURLYBRACE field_decls CLOSE_CURLYBRACE
+        |    CLASS IDENTIFIER OPEN_CURLYBRACE method_decls CLOSE_CURLYBRACE
+        |    CLASS IDENTIFIER OPEN_CURLYBRACE CLOSE_CURLYBRACE
                 {
                    // Check if Identifier is Program
                 //    if($2 == "Program")
@@ -67,17 +67,20 @@ using namespace std;
                 }
     field_decls :  field_decl
                |   field_decls field_decl
-    field_decl :    type identifiers_arrs SEMICOLON
-                |   type identifiers SEMICOLON
+    field_decl :    type identifiers SEMICOLON
+                |   type identifiers_arrs SEMICOLON
+
 
     identifiers_arrs : identifiers_arr
                     |  identifiers_arrs COMMA identifiers_arr
     identifiers_arr : IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET
     method_decls : method_decl
-                | method_decl method_decls
-    method_decl : method_type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block
-    method_type : type
-                | VOID
+                | method_decls method_decl
+    method_decl : type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block
+                | VOID IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block
+                | type IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+                | VOID IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+
     params : param
            | params COMMA param
     param : type IDENTIFIER
@@ -86,12 +89,12 @@ using namespace std;
         |   OPEN_CURLYBRACE statements CLOSE_CURLYBRACE
         |   OPEN_CURLYBRACE CLOSE_CURLYBRACE
     var_decls : var_decl
-            |   var_decl var_decls
+            |   var_decls var_decl
     var_decl : type identifiers SEMICOLON
     identifiers : IDENTIFIER
                 | identifiers COMMA IDENTIFIER
     statements :    statement
-                |   statement statements
+                |   statements statement
     statement : location assign_op expr SEMICOLON
             |   method_call SEMICOLON
             |   IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE block
@@ -102,18 +105,19 @@ using namespace std;
             |   BREAK SEMICOLON
             |   CONTINUE SEMICOLON
             |   block
+            |   SEMICOLON
 
-    method_call : method_name OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS
+    method_call : IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS
+            |     IDENTIFIER OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS {cout << "ye wala " << endl;}
             |     CALLOUT OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS
             |     CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS
     exprs : expr
         |   exprs COMMA expr
-    method_name : IDENTIFIER
-    location :  IDENTIFIER
-            |   IDENTIFIER OPEN_SQUAREBRACKET expr CLOSE_SQUAREBRACKET
-    expr :  location
+    location :  IDENTIFIER {cout << "location with identifier " << $1 << endl;}
+            |   IDENTIFIER OPEN_SQUAREBRACKET expr CLOSE_SQUAREBRACKET {cout << "location with identifier and expr" << $1 << endl;}
+    expr :  location {cout << "It was a location" << endl;}
         |   method_call
-        |   literal
+        |   literal {cout << "It was a literal" << endl;}
         |   expr OR expr
         |   expr AND expr
         |   expr EQUALEQUAL expr
@@ -139,7 +143,7 @@ using namespace std;
             |   MINUSEQUAL
     literal : INT_VALUE {cout << "Integer literal encountered\nValue=" << $1 << endl;}
             | bool_value
-            | CHAR_VALUE
+            | CHAR_VALUE {cout << "Char literal encoutered\nValue=" << $1 << endl;}
     bool_value  :TRUE {cout << "Boolean literal encountered\nValue=" << "true" << endl;}
                 |FALSE {cout << "Boolean literal encountered\nValue=" << "false" << endl;}
     type :  INT {cout << "Int field_decl encountered" << endl;}
