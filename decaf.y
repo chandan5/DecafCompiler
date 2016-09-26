@@ -41,7 +41,7 @@ using namespace std;
 %token TRUE
 %token NOT AND OR
 %token EQUALEQUAL NOTEQUAL LESSEQUAL LESSTHAN GREATEREQUAL GREATERTHAN
-%token EQUAL PLUSEQUAL MINUSEQUAL
+
 %token PLUS MINUS
 %token MULTIPLY DIVIDE MODULO
 
@@ -51,37 +51,90 @@ using namespace std;
 %token <cval> CHAR_VALUE
 %token <ival> INT_VALUE
 
+%left OR
+%left AND
+%token EQUAL PLUSEQUAL MINUSEQUAL
+%left EQUALEQUAL NOTEQUAL
+%nonassoc LESSEQUAL LESSTHAN GREATEREQUAL GREATERTHAN
+%left PLUS MINUS
+%left MULTIPLY DIVIDE MODULO
+
+
 %%
-    program: INT OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE
-               declarations statements CLOSE_CURLYBRACE {cout << "Program encountered" << endl;}
-    declarations :  declaration
-                |   declaration declarations
+    program: CLASS IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE
+               field_decls method_decls CLOSE_CURLYBRACE
+                {
+                   // Check if Identifier is Program
+                    cout << "Program encountered" << endl;
+                }
+    field_decls :  field_decl
+                |   field_decl field_decls
+    field_decl :   type IDENTIFIER SEMICOLON {cout << "Id=" << $2 << endl;}
+               |   type IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET SEMICOLON {cout << "Id=" << $2 << endl << "Size=" << $4 << endl;}
+    method_decls : method_decl
+                | method_decl method_decls
+    method_decl : method_type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block
+    method_type : type
+                | VOID
+    params : param
+           | params COMMA param
+    param : type IDENTIFIER
+    block : OPEN_CURLYBRACE var_decls statements CLOSE_CURLYBRACE
+    var_decls : var_decl
+            |   var_decl var_decls
+    var_decl : type identifiers SEMICOLON
+    identifiers : IDENTIFIER
+                | identifiers COMMA IDENTIFIER
     statements :    statement
                 |   statement statements
-    declaration :   type IDENTIFIER SEMICOLON {cout << "Id=" << $2 << endl;}
-                |   type IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET SEMICOLON {cout << "Id=" << $2 << endl << "Size=" << $4 << endl;}
-    statement : SEMICOLON
-            |   IDENTIFIER EQUAL expression SEMICOLON {cout << "Assignment operation encountered" << endl;}
-            |   IDENTIFIER OPEN_SQUAREBRACKET expression CLOSE_SQUAREBRACKET EQUAL expression SEMICOLON {cout << "Assignment operation encountered" << endl;}
-    expression : term
-            |   term PLUS term {cout << "Addition expression encountered" << endl;}
-            |   term MINUS term {cout << "Subtraction expression encountered" << endl;}
-    term :  factor
-        |   factor MULTIPLY factor {cout << "Multiplication expression encountered" << endl;}
-        |   factor DIVIDE factor {cout << "Division expression encountered" << endl;}
-        |   factor MODULO factor {cout << "Modulus expression encountered" << endl;}
-    // use test for debugging
-    //test:  IDENTIFIER {cout << "found Identifier" << endl;}
-    factor :  IDENTIFIER
-        |   IDENTIFIER OPEN_SQUAREBRACKET expression CLOSE_SQUAREBRACKET
+    statement : location assign_op expr SEMICOLON
+            |   method_call SEMICOLON
+            // |   IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE block
+            |   IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block
+            |   FOR IDENTIFIER EQUAL expr COMMA expr block
+            |   RETURN expr SEMICOLON
+            |   RETURN SEMICOLON
+            |   BREAK SEMICOLON
+            |   CONTINUE SEMICOLON
+            |   block
+
+    method_call : method_name OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS
+            |     CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS
+    exprs : expr
+        |   exprs COMMA expr
+    method_name : IDENTIFIER
+    location :  IDENTIFIER
+            |   IDENTIFIER OPEN_SQUAREBRACKET expr CLOSE_SQUAREBRACKET
+    expr :  location
+        |   method_call
         |   literal
-        |   OPEN_PARANTHESIS expression CLOSE_PARANTHESIS
-    literal :INT_VALUE {cout << "Integer literal encountered\nValue=" << $1 << endl;}
-            |bool_value
+        |   expr bin_op expr
+        |   MINUS expr
+        |   NOT expr
+        |   OPEN_PARANTHESIS expr CLOSE_PARANTHESIS
+    callout_args : callout_arg
+                |   callout_args COMMA callout_arg
+    callout_arg : expr | STRING_VALUE
+    bin_op : arith_op | rel_op | eq_op | cond_op
+    arith_op : PLUS | MINUS | MULTIPLY | DIVIDE | MODULO
+    rel_op :LESSTHAN
+        |   LESSEQUAL
+        |   GREATERTHAN
+        |   GREATEREQUAL
+    eq_op : EQUALEQUAL
+        |   NOTEQUAL
+    cond_op : AND
+            | OR
+    assign_op : EQUAL
+            |   PLUSEQUAL
+            |   MINUSEQUAL
+    literal : INT_VALUE {cout << "Integer literal encountered\nValue=" << $1 << endl;}
+            | bool_value
+            | CHAR_VALUE
     bool_value  :TRUE {cout << "Boolean literal encountered\nValue=" << "true" << endl;}
                 |FALSE {cout << "Boolean literal encountered\nValue=" << "false" << endl;}
-    type :  INT {cout << "Int declaration encountered" << endl;}
-        |   BOOLEAN {cout << "Boolean declaration encountered" << endl;}
+    type :  INT {cout << "Int field_decl encountered" << endl;}
+        |   BOOLEAN {cout << "Boolean field_decl encountered" << endl;}
     // str: STRING_VALUE  { cout << "String literal : "  << $1 << endl; }
 
 %%
@@ -119,3 +172,21 @@ int main(int argc, char*argv[]) {
     cout << "Success" << endl;
     return 0;
 }
+// statement : SEMICOLON
+//         |   IDENTIFIER EQUAL expression SEMICOLON {cout << "Assignment operation encountered" << endl;}
+//         |   IDENTIFIER OPEN_SQUAREBRACKET expression CLOSE_SQUAREBRACKET EQUAL expression SEMICOLON {cout << "Assignment operation encountered" << endl;}
+//
+// expression : term
+//         |   term PLUS term {cout << "Addition expression encountered" << endl;}
+//         |   term MINUS term {cout << "Subtraction expression encountered" << endl;}
+// term :  factor
+//     |   factor MULTIPLY factor {cout << "Multiplication expression encountered" << endl;}
+//     |   factor DIVIDE factor {cout << "Division expression encountered" << endl;}
+//     |   factor MODULO factor {cout << "Modulus expression encountered" << endl;}
+// use test for debugging
+//test:  IDENTIFIER {cout << "found Identifier" << endl;}
+
+// factor :  IDENTIFIER
+//     |   IDENTIFIER OPEN_SQUAREBRACKET expression CLOSE_SQUAREBRACKET
+//     |   literal
+//     |   OPEN_PARANTHESIS expression CLOSE_PARANTHESIS

@@ -69,18 +69,18 @@
      LESSTHAN = 285,
      GREATEREQUAL = 286,
      GREATERTHAN = 287,
-     EQUAL = 288,
-     PLUSEQUAL = 289,
-     MINUSEQUAL = 290,
-     PLUS = 291,
-     MINUS = 292,
-     MULTIPLY = 293,
-     DIVIDE = 294,
-     MODULO = 295,
-     IDENTIFIER = 296,
-     STRING_VALUE = 297,
-     CHAR_VALUE = 298,
-     INT_VALUE = 299
+     PLUS = 288,
+     MINUS = 289,
+     MULTIPLY = 290,
+     DIVIDE = 291,
+     MODULO = 292,
+     IDENTIFIER = 293,
+     STRING_VALUE = 294,
+     CHAR_VALUE = 295,
+     INT_VALUE = 296,
+     EQUAL = 297,
+     PLUSEQUAL = 298,
+     MINUSEQUAL = 299
    };
 #endif
 /* Tokens.  */
@@ -114,18 +114,18 @@
 #define LESSTHAN 285
 #define GREATEREQUAL 286
 #define GREATERTHAN 287
-#define EQUAL 288
-#define PLUSEQUAL 289
-#define MINUSEQUAL 290
-#define PLUS 291
-#define MINUS 292
-#define MULTIPLY 293
-#define DIVIDE 294
-#define MODULO 295
-#define IDENTIFIER 296
-#define STRING_VALUE 297
-#define CHAR_VALUE 298
-#define INT_VALUE 299
+#define PLUS 288
+#define MINUS 289
+#define MULTIPLY 290
+#define DIVIDE 291
+#define MODULO 292
+#define IDENTIFIER 293
+#define STRING_VALUE 294
+#define CHAR_VALUE 295
+#define INT_VALUE 296
+#define EQUAL 297
+#define PLUSEQUAL 298
+#define MINUSEQUAL 299
 
 
 
