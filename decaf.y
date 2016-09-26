@@ -24,7 +24,15 @@ using namespace std;
 %token OPEN_CURLYBRACE
 %token CLOSE_CURLYBRACE
 
-%token MAIN
+%token CLASS
+%token IF
+%token ELSE
+%token FOR
+%token CONTINUE
+%token BREAK
+%token CALLOUT
+%token RETURN
+%token VOID
 %token FALSE
 %token INT
 %token BOOLEAN
@@ -38,7 +46,7 @@ using namespace std;
 %token <ival> INT_VALUE
 
 %%
-    program: INT MAIN OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE
+    program: INT OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE
                 declarations statements CLOSE_CURLYBRACE {cout << "Program encountered" << endl;}
     declarations :  declaration
                 |   declaration declarations

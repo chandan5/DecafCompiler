@@ -30,20 +30,44 @@ ALPHA [a-zA-Z]
     yylval.ival = atoi(yytext);
     return INT_VALUE;
 }
+class {
+    return CLASS;
+}
 int {
     return INT;
 }
-bool {
+boolean {
     return BOOLEAN;
+}
+callout {
+    return CALLOUT;
+}
+if {
+    return IF;
+}
+else {
+    return ELSE;
+}
+for {
+    return FOR;
+}
+continue {
+    return CONTINUE;
+}
+break {
+    return BREAK;
+}
+return {
+    return RETURN;
+}
+void {
+    return VOID;
 }
 true {
     return TRUE;
 }
 false {
     return FALSE;
-}
-main {
-    return MAIN;
 }
 {ALPHA}({ALPHA}|{DIGIT})* {
     yylval.sval = strdup(yytext);

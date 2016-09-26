@@ -46,19 +46,27 @@
      CLOSE_SQUAREBRACKET = 262,
      OPEN_CURLYBRACE = 263,
      CLOSE_CURLYBRACE = 264,
-     MAIN = 265,
-     FALSE = 266,
-     INT = 267,
-     BOOLEAN = 268,
-     TRUE = 269,
-     EQUAL = 270,
-     PLUS = 271,
-     MINUS = 272,
-     MULTIPLY = 273,
-     DIVIDE = 274,
-     MODULO = 275,
-     IDENTIFIER = 276,
-     INT_VALUE = 277
+     CLASS = 265,
+     IF = 266,
+     ELSE = 267,
+     FOR = 268,
+     CONTINUE = 269,
+     BREAK = 270,
+     CALLOUT = 271,
+     RETURN = 272,
+     VOID = 273,
+     FALSE = 274,
+     INT = 275,
+     BOOLEAN = 276,
+     TRUE = 277,
+     EQUAL = 278,
+     PLUS = 279,
+     MINUS = 280,
+     MULTIPLY = 281,
+     DIVIDE = 282,
+     MODULO = 283,
+     IDENTIFIER = 284,
+     INT_VALUE = 285
    };
 #endif
 /* Tokens.  */
@@ -69,19 +77,27 @@
 #define CLOSE_SQUAREBRACKET 262
 #define OPEN_CURLYBRACE 263
 #define CLOSE_CURLYBRACE 264
-#define MAIN 265
-#define FALSE 266
-#define INT 267
-#define BOOLEAN 268
-#define TRUE 269
-#define EQUAL 270
-#define PLUS 271
-#define MINUS 272
-#define MULTIPLY 273
-#define DIVIDE 274
-#define MODULO 275
-#define IDENTIFIER 276
-#define INT_VALUE 277
+#define CLASS 265
+#define IF 266
+#define ELSE 267
+#define FOR 268
+#define CONTINUE 269
+#define BREAK 270
+#define CALLOUT 271
+#define RETURN 272
+#define VOID 273
+#define FALSE 274
+#define INT 275
+#define BOOLEAN 276
+#define TRUE 277
+#define EQUAL 278
+#define PLUS 279
+#define MINUS 280
+#define MULTIPLY 281
+#define DIVIDE 282
+#define MODULO 283
+#define IDENTIFIER 284
+#define INT_VALUE 285
 
 
 
@@ -94,7 +110,7 @@ typedef union YYSTYPE
     char *sval;
 }
 /* Line 1529 of yacc.c.  */
-#line 98 "decaf.tab.hh"
+#line 114 "decaf.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
