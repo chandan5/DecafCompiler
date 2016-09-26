@@ -14,9 +14,11 @@ using namespace std;
 %union {
     int ival;
     char *sval;
+    char cval;
 }
 
 %token SEMICOLON
+%token COMMA
 %token OPEN_PARANTHESIS
 %token CLOSE_PARANTHESIS
 %token OPEN_SQUAREBRACKET
@@ -37,17 +39,21 @@ using namespace std;
 %token INT
 %token BOOLEAN
 %token TRUE
-%token EQUAL
+%token NOT AND OR
+%token EQUALEQUAL NOTEQUAL LESSEQUAL LESSTHAN GREATEREQUAL GREATERTHAN
+%token EQUAL PLUSEQUAL MINUSEQUAL
 %token PLUS MINUS
 %token MULTIPLY DIVIDE MODULO
 
 // TODO prescedence
 %token <sval> IDENTIFIER
+%token <sval> STRING_VALUE
+%token <cval> CHAR_VALUE
 %token <ival> INT_VALUE
 
 %%
     program: INT OPEN_PARANTHESIS CLOSE_PARANTHESIS OPEN_CURLYBRACE
-                declarations statements CLOSE_CURLYBRACE {cout << "Program encountered" << endl;}
+               declarations statements CLOSE_CURLYBRACE {cout << "Program encountered" << endl;}
     declarations :  declaration
                 |   declaration declarations
     statements :    statement
@@ -76,7 +82,7 @@ using namespace std;
                 |FALSE {cout << "Boolean literal encountered\nValue=" << "false" << endl;}
     type :  INT {cout << "Int declaration encountered" << endl;}
         |   BOOLEAN {cout << "Boolean declaration encountered" << endl;}
-
+    // str: STRING_VALUE  { cout << "String literal : "  << $1 << endl; }
 
 %%
 

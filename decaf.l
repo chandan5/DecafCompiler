@@ -14,6 +14,8 @@ int error_count = 0;
 
 DIGIT [0-9]
 ALPHA [a-zA-Z]
+HEXADECIMAL [0-9a-fA-F]
+CHAR ([\40-\176]{-}['"\\])|\\n|\\t|\\\\|\\\"|\\\'
 
 %%
 [ \t\n]  {
@@ -22,10 +24,6 @@ ALPHA [a-zA-Z]
 \/\/(.*?)\n {
 
 }
-[/][*][^*]*[*]+([^*/][^*]*[*]+)*[/] {
-
-}
-
 {DIGIT}+ {
     yylval.ival = atoi(yytext);
     return INT_VALUE;
@@ -73,6 +71,20 @@ false {
     yylval.sval = strdup(yytext);
     return IDENTIFIER;
 }
+0x{HEXADECIMAL}+ {
+	yylval.ival = atoi(yytext);
+	return INT_VALUE;
+}
+\"{CHAR}*\" {
+    yytext[strlen(yytext)-1] = '\0';
+    yylval.sval = strdup(yytext+1);
+	return STRING_VALUE;
+}
+
+\'{CHAR}\' {
+	yylval.cval = yytext[1];
+	return CHAR_VALUE;
+}
 \[ {
     return OPEN_SQUAREBRACKET;
 }
@@ -91,8 +103,41 @@ false {
 \) {
     return CLOSE_PARANTHESIS;
 }
+\!\= {
+	return NOTEQUAL;
+}
+
+\! {
+	return NOT;
+}
+
+\<\= {
+	return LESSEQUAL;
+}
+
+\< {
+	return LESSTHAN;
+}
+
+\>\= {
+	return GREATEREQUAL;
+}
+
+\> {
+	return GREATERTHAN;
+}
+
+\=\= {
+	return EQUALEQUAL;
+}
 \= {
     return EQUAL;
+}
+\+\= {
+    return PLUSEQUAL;
+}
+\-\= {
+    return MINUSEQUAL;
 }
 \+ {
     return PLUS;
@@ -108,6 +153,15 @@ false {
 }
 \% {
     return MODULO;
+}
+\&\& {
+    return AND;
+}
+\|\| {
+    return OR;
+}
+, {
+    return COMMA;
 }
 ; {
     return SEMICOLON;

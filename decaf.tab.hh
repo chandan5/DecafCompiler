@@ -40,64 +40,92 @@
       know about them.  */
    enum yytokentype {
      SEMICOLON = 258,
-     OPEN_PARANTHESIS = 259,
-     CLOSE_PARANTHESIS = 260,
-     OPEN_SQUAREBRACKET = 261,
-     CLOSE_SQUAREBRACKET = 262,
-     OPEN_CURLYBRACE = 263,
-     CLOSE_CURLYBRACE = 264,
-     CLASS = 265,
-     IF = 266,
-     ELSE = 267,
-     FOR = 268,
-     CONTINUE = 269,
-     BREAK = 270,
-     CALLOUT = 271,
-     RETURN = 272,
-     VOID = 273,
-     FALSE = 274,
-     INT = 275,
-     BOOLEAN = 276,
-     TRUE = 277,
-     EQUAL = 278,
-     PLUS = 279,
-     MINUS = 280,
-     MULTIPLY = 281,
-     DIVIDE = 282,
-     MODULO = 283,
-     IDENTIFIER = 284,
-     INT_VALUE = 285
+     COMMA = 259,
+     OPEN_PARANTHESIS = 260,
+     CLOSE_PARANTHESIS = 261,
+     OPEN_SQUAREBRACKET = 262,
+     CLOSE_SQUAREBRACKET = 263,
+     OPEN_CURLYBRACE = 264,
+     CLOSE_CURLYBRACE = 265,
+     CLASS = 266,
+     IF = 267,
+     ELSE = 268,
+     FOR = 269,
+     CONTINUE = 270,
+     BREAK = 271,
+     CALLOUT = 272,
+     RETURN = 273,
+     VOID = 274,
+     FALSE = 275,
+     INT = 276,
+     BOOLEAN = 277,
+     TRUE = 278,
+     NOT = 279,
+     AND = 280,
+     OR = 281,
+     EQUALEQUAL = 282,
+     NOTEQUAL = 283,
+     LESSEQUAL = 284,
+     LESSTHAN = 285,
+     GREATEREQUAL = 286,
+     GREATERTHAN = 287,
+     EQUAL = 288,
+     PLUSEQUAL = 289,
+     MINUSEQUAL = 290,
+     PLUS = 291,
+     MINUS = 292,
+     MULTIPLY = 293,
+     DIVIDE = 294,
+     MODULO = 295,
+     IDENTIFIER = 296,
+     STRING_VALUE = 297,
+     CHAR_VALUE = 298,
+     INT_VALUE = 299
    };
 #endif
 /* Tokens.  */
 #define SEMICOLON 258
-#define OPEN_PARANTHESIS 259
-#define CLOSE_PARANTHESIS 260
-#define OPEN_SQUAREBRACKET 261
-#define CLOSE_SQUAREBRACKET 262
-#define OPEN_CURLYBRACE 263
-#define CLOSE_CURLYBRACE 264
-#define CLASS 265
-#define IF 266
-#define ELSE 267
-#define FOR 268
-#define CONTINUE 269
-#define BREAK 270
-#define CALLOUT 271
-#define RETURN 272
-#define VOID 273
-#define FALSE 274
-#define INT 275
-#define BOOLEAN 276
-#define TRUE 277
-#define EQUAL 278
-#define PLUS 279
-#define MINUS 280
-#define MULTIPLY 281
-#define DIVIDE 282
-#define MODULO 283
-#define IDENTIFIER 284
-#define INT_VALUE 285
+#define COMMA 259
+#define OPEN_PARANTHESIS 260
+#define CLOSE_PARANTHESIS 261
+#define OPEN_SQUAREBRACKET 262
+#define CLOSE_SQUAREBRACKET 263
+#define OPEN_CURLYBRACE 264
+#define CLOSE_CURLYBRACE 265
+#define CLASS 266
+#define IF 267
+#define ELSE 268
+#define FOR 269
+#define CONTINUE 270
+#define BREAK 271
+#define CALLOUT 272
+#define RETURN 273
+#define VOID 274
+#define FALSE 275
+#define INT 276
+#define BOOLEAN 277
+#define TRUE 278
+#define NOT 279
+#define AND 280
+#define OR 281
+#define EQUALEQUAL 282
+#define NOTEQUAL 283
+#define LESSEQUAL 284
+#define LESSTHAN 285
+#define GREATEREQUAL 286
+#define GREATERTHAN 287
+#define EQUAL 288
+#define PLUSEQUAL 289
+#define MINUSEQUAL 290
+#define PLUS 291
+#define MINUS 292
+#define MULTIPLY 293
+#define DIVIDE 294
+#define MODULO 295
+#define IDENTIFIER 296
+#define STRING_VALUE 297
+#define CHAR_VALUE 298
+#define INT_VALUE 299
 
 
 
@@ -108,9 +136,10 @@ typedef union YYSTYPE
 {
     int ival;
     char *sval;
+    char cval;
 }
 /* Line 1529 of yacc.c.  */
-#line 114 "decaf.tab.hh"
+#line 143 "decaf.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
