@@ -1,84 +1,33 @@
 Int field_decl encountered
 Int field_decl encountered
 Boolean field_decl encountered
+Boolean field_decl encountered
 Int field_decl encountered
-location with identifier a
-Integer literal encountered
-Value=5
-It was a literal
-location with identifier d
-Integer literal encountered
-Value=3
-It was a literal
-Integer literal encountered
-Value=5
-It was a literal
+Int field_decl encountered
+location with identifier e
+It was a location
 location with identifier a
 It was a location
 Integer literal encountered
-Value=3
-It was a literal
-Integer literal encountered
-Value=5
-It was a literal
-location with identifier b
-It was a location
-location with identifier and expry
-It was a location
-location with identifier x
-It was a location
-location with identifier s
-Integer literal encountered
-Value=3
-It was a literal
-Integer literal encountered
-Value=5
+Value=2
 It was a literal
 location with identifier a
 It was a location
-Integer literal encountered
-Value=3
+Char literal encoutered
+Value=c
 It was a literal
-Integer literal encountered
-Value=5
+location with identifier a
+It was a location
+Char literal encoutered
+Value=a
 It was a literal
-location with identifier b
-It was a location
-location with identifier and expry
-It was a location
-location with identifier x
-It was a location
 ye wala 
-location with identifier a
-location with identifier t
-It was a location
+Integer literal encountered
+Value=12
+It was a literal
+Integer literal encountered
+Value=12
+It was a literal
 Integer literal encountered
 Value=3
 It was a literal
-location with identifier b
-location with identifier a
-It was a location
-location with identifier a
-It was a location
-Integer literal encountered
-Value=5
-It was a literal
-location with identifier b
-It was a location
-Integer literal encountered
-Value=5
-It was a literal
-location with identifier b
-It was a location
-Integer literal encountered
-Value=3
-It was a literal
-location with identifier a
-It was a location
-location with identifier b
-It was a location
-ye wala 
-Boolean field_decl encountered
-Boolean field_decl encountered
-location with identifier c
-It was a location

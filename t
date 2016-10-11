@@ -1,5 +1,5 @@
 class Program {
-    int a, b, c;
+    int a, b, c, d[20];
     int d[100], e[1000], f[0x6affdf];
     boolean xxx;
     boolean x[12];

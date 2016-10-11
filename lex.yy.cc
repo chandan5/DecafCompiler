@@ -549,15 +549,13 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "decaf.l"
 #line 2 "decaf.l"
-#include<cstdio>
-#include<iostream>
-#include <fstream>
-    using namespace std;
 #define YY_DECL extern "C" int yylex()
 #include "decaf.tab.hh"
 
+// error_count increased whenever an unrecognised terminal is encountered
 extern int error_count;
-#line 561 "lex.yy.cc"
+// "%option yylineno" automatic line number counter provided by flex
+#line 559 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -739,9 +737,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 19 "decaf.l"
+#line 17 "decaf.l"
 
-#line 745 "lex.yy.cc"
+#line 743 "lex.yy.cc"
 
 	if ( !(yy_init) )
 		{
@@ -837,7 +835,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 20 "decaf.l"
+#line 18 "decaf.l"
 {
 
 };
@@ -845,14 +843,14 @@ YY_RULE_SETUP
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 23 "decaf.l"
+#line 21 "decaf.l"
 {
 
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 26 "decaf.l"
+#line 24 "decaf.l"
 {
     yylval.ival = atoi(yytext);
     return INT_VALUE;
@@ -860,98 +858,98 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 30 "decaf.l"
+#line 28 "decaf.l"
 {
     return CLASS;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 33 "decaf.l"
+#line 31 "decaf.l"
 {
     return INT;
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 36 "decaf.l"
+#line 34 "decaf.l"
 {
     return BOOLEAN;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 39 "decaf.l"
+#line 37 "decaf.l"
 {
     return CALLOUT;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 42 "decaf.l"
+#line 40 "decaf.l"
 {
     return IF;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 45 "decaf.l"
+#line 43 "decaf.l"
 {
     return ELSE;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 48 "decaf.l"
+#line 46 "decaf.l"
 {
     return FOR;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 51 "decaf.l"
+#line 49 "decaf.l"
 {
     return CONTINUE;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 54 "decaf.l"
+#line 52 "decaf.l"
 {
     return BREAK;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 57 "decaf.l"
+#line 55 "decaf.l"
 {
     return RETURN;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 60 "decaf.l"
+#line 58 "decaf.l"
 {
     return VOID;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 63 "decaf.l"
+#line 61 "decaf.l"
 {
     return TRUE;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 66 "decaf.l"
+#line 64 "decaf.l"
 {
     return FALSE;
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 69 "decaf.l"
+#line 67 "decaf.l"
 {
     yylval.sval = strdup(yytext);
     return IDENTIFIER;
@@ -959,7 +957,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 73 "decaf.l"
+#line 71 "decaf.l"
 {
 	yylval.ival = atoi(yytext);
 	return INT_VALUE;
@@ -967,7 +965,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 77 "decaf.l"
+#line 75 "decaf.l"
 {
     yytext[strlen(yytext)-1] = '\0';
     yylval.sval = strdup(yytext+1);
@@ -976,7 +974,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 83 "decaf.l"
+#line 81 "decaf.l"
 {
 	yylval.cval = yytext[1];
 	return CHAR_VALUE;
@@ -984,190 +982,190 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 87 "decaf.l"
+#line 85 "decaf.l"
 {
     return OPEN_SQUAREBRACKET;
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 90 "decaf.l"
+#line 88 "decaf.l"
 {
     return CLOSE_SQUAREBRACKET;
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 93 "decaf.l"
+#line 91 "decaf.l"
 {
     return OPEN_CURLYBRACE;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 96 "decaf.l"
+#line 94 "decaf.l"
 {
     return CLOSE_CURLYBRACE;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 99 "decaf.l"
+#line 97 "decaf.l"
 {
     return OPEN_PARANTHESIS;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 102 "decaf.l"
+#line 100 "decaf.l"
 {
     return CLOSE_PARANTHESIS;
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 105 "decaf.l"
+#line 103 "decaf.l"
 {
 	return NOTEQUAL;
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 109 "decaf.l"
+#line 107 "decaf.l"
 {
 	return NOT;
 }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 113 "decaf.l"
+#line 111 "decaf.l"
 {
 	return LESSEQUAL;
 }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 117 "decaf.l"
+#line 115 "decaf.l"
 {
 	return LESSTHAN;
 }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 121 "decaf.l"
+#line 119 "decaf.l"
 {
 	return GREATEREQUAL;
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 125 "decaf.l"
+#line 123 "decaf.l"
 {
 	return GREATERTHAN;
 }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 129 "decaf.l"
+#line 127 "decaf.l"
 {
 	return EQUALEQUAL;
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 132 "decaf.l"
+#line 130 "decaf.l"
 {
     return EQUAL;
 }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 135 "decaf.l"
+#line 133 "decaf.l"
 {
     return PLUSEQUAL;
 }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 138 "decaf.l"
+#line 136 "decaf.l"
 {
     return MINUSEQUAL;
 }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 141 "decaf.l"
+#line 139 "decaf.l"
 {
     return PLUS;
 }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 144 "decaf.l"
+#line 142 "decaf.l"
 {
     return MINUS;
 }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 147 "decaf.l"
+#line 145 "decaf.l"
 {
     return MULTIPLY;
 }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 150 "decaf.l"
+#line 148 "decaf.l"
 {
     return DIVIDE;
 }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 153 "decaf.l"
+#line 151 "decaf.l"
 {
     return MODULO;
 }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 156 "decaf.l"
+#line 154 "decaf.l"
 {
     return AND;
 }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 159 "decaf.l"
+#line 157 "decaf.l"
 {
     return OR;
 }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 162 "decaf.l"
+#line 160 "decaf.l"
 {
     return COMMA;
 }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 165 "decaf.l"
+#line 163 "decaf.l"
 {
     return SEMICOLON;
 }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 168 "decaf.l"
+#line 166 "decaf.l"
 {++error_count;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 169 "decaf.l"
+#line 167 "decaf.l"
 ECHO;
 	YY_BREAK
-#line 1171 "lex.yy.cc"
+#line 1169 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2176,7 +2174,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 169 "decaf.l"
+#line 167 "decaf.l"
 
 
 

@@ -11,6 +11,9 @@ using namespace std;
 	void yyerror(const char *s);
 %}
 
+// yylval is sort of a struct with all the fileds in union
+// yylval is used to pass values from lexical analyser to parser
+
 %union {
     int ival;
     char *sval;
@@ -40,7 +43,6 @@ using namespace std;
 %token BOOLEAN
 %token TRUE
 
-// TODO prescedence
 %token <sval> IDENTIFIER
 %token <sval> STRING_VALUE
 %token <cval> CHAR_VALUE
@@ -49,6 +51,9 @@ using namespace std;
 %left OR
 %left AND
 %token EQUAL PLUSEQUAL MINUSEQUAL
+
+// handling precedence
+// left indicates left associativity
 %left EQUALEQUAL NOTEQUAL
 %nonassoc LESSEQUAL LESSTHAN GREATEREQUAL GREATERTHAN
 %left PLUS MINUS
@@ -65,6 +70,10 @@ using namespace std;
                 //    if($2 == "Program")
                         cout << "Program encountered" << endl;
                 }
+
+    // When first field_decl is constructed from rule : "field_decl : type identifier_opt_arrs SEMICOLON"
+    // It makes a filed_decls using rule : "field_decls :  field_decl".
+    // When next field_decl is constructed field_decls is updated using "field_decls : field_decls field_decl"
     field_decls :  field_decl
                |   field_decls field_decl
     field_decl :    type identifier_opt_arrs SEMICOLON
@@ -72,7 +81,7 @@ using namespace std;
     identifier_opt_arrs : identifier_opt_arr
                     |     identifier_opt_arrs COMMA identifier_opt_arr
     identifier_opt_arr : IDENTIFIER
-                    |   IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET 
+                    |   IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET
     method_decls : method_decl
                 | method_decls method_decl
     method_decl : type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block
@@ -135,7 +144,6 @@ using namespace std;
         |   OPEN_PARANTHESIS expr CLOSE_PARANTHESIS
     callout_args : COMMA callout_arg
                 |  callout_args COMMA callout_arg
-            //    |
     callout_arg : expr | STRING_VALUE
     assign_op : EQUAL
             |   PLUSEQUAL
@@ -152,6 +160,9 @@ using namespace std;
 %%
 
 void yyerror (const char *s) {
+    // TODO print exactly where syntax error occured
+    // yyerror is called when a terminal us not able to fit into grammar.
+    // That is when given program does not hold true to the grammar.
     cout << "Syntax error" << endl;
 	// std::cerr << "Parse Error on Line : " << yylineno << std::endl << "Message : " << s << std::endl;
 	exit(-1);
@@ -166,7 +177,7 @@ int main(int argc, char*argv[]) {
      }
      ofstream out("bison_output.txt");
      streambuf *coutbuf = std::cout.rdbuf(); //save old buf
-     cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
+     cout.rdbuf(out.rdbuf()); //redirect std::cout to bison_output.txt
     // We assume argv[1] is a filename to open
         FILE *myfile = fopen( argv[1], "r" );
         if (!myfile) {
@@ -174,13 +185,14 @@ int main(int argc, char*argv[]) {
             return -1;
         }
 
-        // set lex to read from it instead of defaulting to STDIN:
+        // set lex to read from given file (argv[1]) instead of defaulting to STDIN:
         yyin = myfile;
-
+    // parsing till we find EOF
     do {
         yyparse();
     } while (!feof(yyin));
     cout.rdbuf(coutbuf); //reset to standard output again
+    // if some string(s) were encountered which could not be recognised as a terminal then there was a syntax error
     if(error_count)
         cout << "Syntax error" << endl;
     else

@@ -160,7 +160,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 14 "decaf.y" /* yacc.c:355  */
+#line 17 "decaf.y" /* yacc.c:355  */
 
     int ival;
     char *sval;
@@ -484,15 +484,15 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    59,    59,    60,    61,    62,    68,    69,    70,    72,
-      73,    74,    75,    76,    77,    78,    79,    80,    81,    83,
-      84,    85,    86,    87,    88,    89,    90,    91,    92,    93,
-      94,    95,    96,    97,    98,    99,   100,   101,   102,   103,
-     104,   105,   106,   107,   109,   110,   111,   112,   113,   114,
-     115,   116,   117,   118,   119,   120,   121,   122,   123,   124,
-     125,   126,   127,   128,   129,   130,   131,   132,   133,   134,
-     135,   136,   137,   139,   139,   140,   141,   142,   143,   144,
-     145,   146,   147,   148,   149
+       0,    64,    64,    65,    66,    67,    77,    78,    79,    81,
+      82,    83,    84,    85,    86,    87,    88,    89,    90,    92,
+      93,    94,    95,    96,    97,    98,    99,   100,   101,   102,
+     103,   104,   105,   106,   107,   108,   109,   110,   111,   112,
+     113,   114,   115,   116,   118,   119,   120,   121,   122,   123,
+     124,   125,   126,   127,   128,   129,   130,   131,   132,   133,
+     134,   135,   136,   137,   138,   139,   140,   141,   142,   143,
+     144,   145,   146,   147,   147,   148,   149,   150,   151,   152,
+     153,   154,   155,   156,   157
 };
 #endif
 
@@ -1427,7 +1427,7 @@ yyreduce:
   switch (yyn)
     {
         case 5:
-#line 63 "decaf.y" /* yacc.c:1661  */
+#line 68 "decaf.y" /* yacc.c:1661  */
     {
                    // Check if Identifier is Program
                 //    if($2 == "Program")
@@ -1437,67 +1437,67 @@ yyreduce:
     break;
 
   case 45:
-#line 110 "decaf.y" /* yacc.c:1661  */
+#line 119 "decaf.y" /* yacc.c:1661  */
     {cout << "ye wala " << endl;}
 #line 1443 "decaf.tab.cc" /* yacc.c:1661  */
     break;
 
   case 50:
-#line 115 "decaf.y" /* yacc.c:1661  */
+#line 124 "decaf.y" /* yacc.c:1661  */
     {cout << "location with identifier " << (yyvsp[0].sval) << endl;}
 #line 1449 "decaf.tab.cc" /* yacc.c:1661  */
     break;
 
   case 51:
-#line 116 "decaf.y" /* yacc.c:1661  */
+#line 125 "decaf.y" /* yacc.c:1661  */
     {cout << "location with identifier and expr" << (yyvsp[-3].sval) << endl;}
 #line 1455 "decaf.tab.cc" /* yacc.c:1661  */
     break;
 
   case 52:
-#line 117 "decaf.y" /* yacc.c:1661  */
+#line 126 "decaf.y" /* yacc.c:1661  */
     {cout << "It was a location" << endl;}
 #line 1461 "decaf.tab.cc" /* yacc.c:1661  */
     break;
 
   case 54:
-#line 119 "decaf.y" /* yacc.c:1661  */
+#line 128 "decaf.y" /* yacc.c:1661  */
     {cout << "It was a literal" << endl;}
 #line 1467 "decaf.tab.cc" /* yacc.c:1661  */
     break;
 
   case 78:
-#line 143 "decaf.y" /* yacc.c:1661  */
+#line 151 "decaf.y" /* yacc.c:1661  */
     {cout << "Integer literal encountered\nValue=" << (yyvsp[0].ival) << endl;}
 #line 1473 "decaf.tab.cc" /* yacc.c:1661  */
     break;
 
   case 80:
-#line 145 "decaf.y" /* yacc.c:1661  */
+#line 153 "decaf.y" /* yacc.c:1661  */
     {cout << "Char literal encoutered\nValue=" << (yyvsp[0].cval) << endl;}
 #line 1479 "decaf.tab.cc" /* yacc.c:1661  */
     break;
 
   case 81:
-#line 146 "decaf.y" /* yacc.c:1661  */
+#line 154 "decaf.y" /* yacc.c:1661  */
     {cout << "Boolean literal encountered\nValue=" << "true" << endl;}
 #line 1485 "decaf.tab.cc" /* yacc.c:1661  */
     break;
 
   case 82:
-#line 147 "decaf.y" /* yacc.c:1661  */
+#line 155 "decaf.y" /* yacc.c:1661  */
     {cout << "Boolean literal encountered\nValue=" << "false" << endl;}
 #line 1491 "decaf.tab.cc" /* yacc.c:1661  */
     break;
 
   case 83:
-#line 148 "decaf.y" /* yacc.c:1661  */
+#line 156 "decaf.y" /* yacc.c:1661  */
     {cout << "Int field_decl encountered" << endl;}
 #line 1497 "decaf.tab.cc" /* yacc.c:1661  */
     break;
 
   case 84:
-#line 149 "decaf.y" /* yacc.c:1661  */
+#line 157 "decaf.y" /* yacc.c:1661  */
     {cout << "Boolean field_decl encountered" << endl;}
 #line 1503 "decaf.tab.cc" /* yacc.c:1661  */
     break;
@@ -1731,10 +1731,13 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 152 "decaf.y" /* yacc.c:1906  */
+#line 160 "decaf.y" /* yacc.c:1906  */
 
 
 void yyerror (const char *s) {
+    // TODO print exactly where syntax error occured
+    // yyerror is called when a terminal us not able to fit into grammar.
+    // That is when given program does not hold true to the grammar.
     cout << "Syntax error" << endl;
 	// std::cerr << "Parse Error on Line : " << yylineno << std::endl << "Message : " << s << std::endl;
 	exit(-1);
@@ -1749,7 +1752,7 @@ int main(int argc, char*argv[]) {
      }
      ofstream out("bison_output.txt");
      streambuf *coutbuf = std::cout.rdbuf(); //save old buf
-     cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
+     cout.rdbuf(out.rdbuf()); //redirect std::cout to bison_output.txt
     // We assume argv[1] is a filename to open
         FILE *myfile = fopen( argv[1], "r" );
         if (!myfile) {
@@ -1757,9 +1760,9 @@ int main(int argc, char*argv[]) {
             return -1;
         }
 
-        // set lex to read from it instead of defaulting to STDIN:
+        // set lex to read from given file (argv[1]) instead of defaulting to STDIN:
         yyin = myfile;
-
+    // parsing till we find EOF
     do {
         yyparse();
     } while (!feof(yyin));
