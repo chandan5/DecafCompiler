@@ -6,7 +6,7 @@
 #define YY_DECL extern "C" int yylex()
 #include "decaf.tab.hh"
 
-int error_count = 0;
+extern int error_count;
 %}
 
 %option yylineno
@@ -165,5 +165,5 @@ false {
 ; {
     return SEMICOLON;
 }
-. {++error_count; cerr << "Something went wrong" << endl;}
+. {++error_count;}
 %%

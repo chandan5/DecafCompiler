@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-
+    int error_count = 0;
     extern "C" int yylex();
 	extern "C" int yyparse();
 	extern "C" FILE * yyin;
@@ -67,13 +67,12 @@ using namespace std;
                 }
     field_decls :  field_decl
                |   field_decls field_decl
-    field_decl :    type identifiers SEMICOLON
-                |   type identifiers_arrs SEMICOLON
+    field_decl :    type identifier_opt_arrs SEMICOLON
 
-
-    identifiers_arrs : identifiers_arr
-                    |  identifiers_arrs COMMA identifiers_arr
-    identifiers_arr : IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET
+    identifier_opt_arrs : identifier_opt_arr
+                    |     identifier_opt_arrs COMMA identifier_opt_arr
+    identifier_opt_arr : IDENTIFIER
+                    |   IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET 
     method_decls : method_decl
                 | method_decls method_decl
     method_decl : type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block
@@ -182,6 +181,9 @@ int main(int argc, char*argv[]) {
         yyparse();
     } while (!feof(yyin));
     cout.rdbuf(coutbuf); //reset to standard output again
-    cout << "Success" << endl;
+    if(error_count)
+        cout << "Syntax error" << endl;
+    else
+        cout << "Success" << endl;
     return 0;
 }

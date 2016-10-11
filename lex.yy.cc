@@ -556,7 +556,7 @@ char *yytext;
 #define YY_DECL extern "C" int yylex()
 #include "decaf.tab.hh"
 
-int error_count = 0;
+extern int error_count;
 #line 561 "lex.yy.cc"
 
 #define INITIAL 0
@@ -1160,7 +1160,7 @@ YY_RULE_SETUP
 case 46:
 YY_RULE_SETUP
 #line 168 "decaf.l"
-{++error_count; cerr << "Something went wrong" << endl;}
+{++error_count;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP

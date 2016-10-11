@@ -8,7 +8,7 @@ class Program {
         if(e != a) {
             callout("scanf",2,a,'c');
         }
-        func1(a,'s');
+        func1(a,'a');
         return (12+(12-3));
     }
 }
