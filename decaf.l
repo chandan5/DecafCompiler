@@ -1,7 +1,7 @@
 %{
 #define YY_DECL extern "C" int yylex()
+#include "AST.h"
 #include "decaf.tab.hh"
-
 // error_count increased whenever some string is encountered which can not be one of the terminal
 extern int error_count;
 // "%option yylineno" automatic line number counter provided by flex
