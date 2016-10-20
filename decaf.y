@@ -83,10 +83,10 @@ using namespace std;
 
 
 %%
-    program: CLASS IDENTIFIER OPEN_CURLYBRACE field_decls method_decls CLOSE_CURLYBRACE {$$ = new ASTProgram($4,$5);}
-        |    CLASS IDENTIFIER OPEN_CURLYBRACE field_decls CLOSE_CURLYBRACE {$$ = new ASTProgram($4,NULL);}
-        |    CLASS IDENTIFIER OPEN_CURLYBRACE method_decls CLOSE_CURLYBRACE {$$ = new ASTProgram(NULL,$4);}
-        |    CLASS IDENTIFIER OPEN_CURLYBRACE CLOSE_CURLYBRACE {$$ = new ASTProgram(NULL,NULL);}
+    program: CLASS IDENTIFIER OPEN_CURLYBRACE field_decls method_decls CLOSE_CURLYBRACE {$$ = new ASTProgram($4,$5); astRoot = $$;}
+        |    CLASS IDENTIFIER OPEN_CURLYBRACE field_decls CLOSE_CURLYBRACE {$$ = new ASTProgram($4,NULL); astRoot = $$;}
+        |    CLASS IDENTIFIER OPEN_CURLYBRACE method_decls CLOSE_CURLYBRACE {$$ = new ASTProgram(NULL,$4); astRoot = $$;}
+        |    CLASS IDENTIFIER OPEN_CURLYBRACE CLOSE_CURLYBRACE {$$ = new ASTProgram(NULL,NULL); astRoot = $$;}
                 // {
                    // Check if Identifier is Program
                 //    if($2 == "Program")
@@ -102,34 +102,34 @@ using namespace std;
 
     identifier_opt_arrs : identifier_opt_arr {$$ = new vector<ASTIdentifier *>(); $$->push_back($1);}
                     |     identifier_opt_arrs COMMA identifier_opt_arr {$1->push_back($3); $$ = $1;}
-    identifier_opt_arr : IDENTIFIER {$$ = new ASTNormalIdentifier($1);}
+    identifier_opt_arr : IDENTIFIER {$$ = new ASTNormalIdentifier(string($1));}
                     |   IDENTIFIER OPEN_SQUAREBRACKET INT_VALUE CLOSE_SQUAREBRACKET {$$ = new ASTArrayIdentifier($1,$3);}
     method_decls : method_decl {$$ = new vector<ASTMethodDeclaration *>(); $$->push_back($1);}
                 | method_decls method_decl {$1->push_back($2); $$ = $1;}
-    method_decl : type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block {$$ = new ASTMethodDeclaration($1,$2,$4,$6);}
-                | VOID IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block {$$ = new ASTMethodDeclaration(DataType::void_type,$2,$4,$6);}
-                | type IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS block {$$ = new ASTMethodDeclaration($1,$2,NULL,$5);}
-                | VOID IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS block {$$ = new ASTMethodDeclaration(DataType::void_type,$2,NULL,$5);}
+    method_decl : type IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block {$$ = new ASTMethodDeclaration($1,string($2),$4,$6);}
+                | VOID IDENTIFIER OPEN_PARANTHESIS params CLOSE_PARANTHESIS block {$$ = new ASTMethodDeclaration(DataType::void_type,string($2),$4,$6);}
+                | type IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS block {$$ = new ASTMethodDeclaration($1,string($2),NULL,$5);}
+                | VOID IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS block {$$ = new ASTMethodDeclaration(DataType::void_type,string($2),NULL,$5);}
 
     params : param {$$ = new vector<ASTParam *>(); $$->push_back($1);}
            | params COMMA param {$1->push_back($3); $$ = $1;}
-    param : type IDENTIFIER {$$ = new ASTParam($1,$2);}
-    block : OPEN_CURLYBRACE var_decls statements CLOSE_CURLYBRACE {$$ = new ASTBlock($2,$3);}
-        |   OPEN_CURLYBRACE var_decls CLOSE_CURLYBRACE {$$ = new ASTBlock($2,NULL);}
-        |   OPEN_CURLYBRACE statements CLOSE_CURLYBRACE {$$ = new ASTBlock(NULL,$2);}
-        |   OPEN_CURLYBRACE CLOSE_CURLYBRACE {$$ = new ASTBlock(NULL,NULL);}
+    param : type IDENTIFIER {$$ = new ASTParam($1,string($2));}
+    block : OPEN_CURLYBRACE var_decls statements CLOSE_CURLYBRACE {$$ = new ASTBlockStatement($2,$3);}
+        |   OPEN_CURLYBRACE var_decls CLOSE_CURLYBRACE {$$ = new ASTBlockStatement($2,NULL);}
+        |   OPEN_CURLYBRACE statements CLOSE_CURLYBRACE {$$ = new ASTBlockStatement(NULL,$2);}
+        |   OPEN_CURLYBRACE CLOSE_CURLYBRACE {$$ = new ASTBlockStatement(NULL,NULL);}
     var_decls : var_decl {$$ = new vector<ASTVarDeclaration *>(); $$->push_back($1);}
             |   var_decls var_decl {$1->push_back($2); $$ = $1;}
-    var_decl : type identifiers SEMICOLON {$$ = new ASTVarLocation($1,$2);}
-    identifiers : IDENTIFIER {$$ = new vector<ASTVarLocation *>(); $$->push_back($1);}
-                | identifiers COMMA IDENTIFIER {$1->push_back($3); $$ = $1;}
+    var_decl : type identifiers SEMICOLON {$$ = new ASTVarDeclaration($1,$2);}
+    identifiers : IDENTIFIER {$$ = new vector<ASTVarLocation *>(); $$->push_back(new ASTVarLocation(string($1)));}
+                | identifiers COMMA IDENTIFIER {$1->push_back(new ASTVarLocation(string($3))); $$ = $1;}
     statements :    statement {$$ = new vector<ASTStatement *>(); $$->push_back($1);}
                 |   statements statement {$1->push_back($2); $$ = $1;}
     statement : location assign_op expr SEMICOLON {$$ = new ASTAssignmentStatement($1,$3,$2);}
             |   method_call SEMICOLON {$$ = new ASTMethodCallStatement($1);}
             |   IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block ELSE block {$$ = new ASTIfStatement($3,$5,$7);}
             |   IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS block {$$ = new ASTIfStatement($3,$5,NULL);}
-            |   FOR IDENTIFIER EQUAL expr COMMA expr block {$$ = new ASTForStatement($2,$4,$6,$7);}
+            |   FOR IDENTIFIER EQUAL expr COMMA expr block {$$ = new ASTForStatement(string($2),$4,$6,$7);}
             |   RETURN expr SEMICOLON {$$ = new ASTReturnStatement($2);}
             |   RETURN SEMICOLON {$$ = new ASTReturnStatement(NULL);}
             |   BREAK SEMICOLON {$$ = new ASTBreakStatement();}
@@ -139,8 +139,8 @@ using namespace std;
 
     method_call : IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS {$$ = new ASTSimpleMethodCall($1,NULL);}
             |     IDENTIFIER OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS {$$ = new ASTSimpleMethodCall($1,$3);}
-            |     CALLOUT OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS {$$ = new ASTCalloutMethodCall($3,NULL);}
-            |     CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS {$$ = new ASTCalloutMethodCall($3,$4);}
+            |     CALLOUT OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS {$$ = new ASTCalloutMethodCall(string($3),NULL);}
+            |     CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS {$$ = new ASTCalloutMethodCall(string($3),$4);}
     exprs : expr {$$ = new vector<ASTExpression *>(); $$->push_back($1);}
         |   exprs COMMA expr {$1->push_back($3); $$ = $1;}
     location :  IDENTIFIER {$$ = new ASTVarLocation($1);}
@@ -157,7 +157,7 @@ using namespace std;
         |   expr GREATERTHAN expr {$$ = new ASTBinaryExpression($1,$3,BinOp::greaterthan_op);}
         |   expr GREATEREQUAL expr {$$ = new ASTBinaryExpression($1,$3,BinOp::greaterequal_op);}
         |   expr PLUS expr {$$ = new ASTBinaryExpression($1,$3,BinOp::plus_op);}
-        |   expr MINUS expr {$$ = new ASTBinaryExpression($1,$3,BinOp::minus_op);}
+        |   expr MINUS expr {$$ = new ASTBinaryExpression($1,$3,BinOp::sub_op);}
         |   expr MULTIPLY expr {$$ = new ASTBinaryExpression($1,$3,BinOp::multiply_op);}
         |   expr DIVIDE expr {$$ = new ASTBinaryExpression($1,$3,BinOp::divide_op);}
         |   expr MODULO expr {$$ = new ASTBinaryExpression($1,$3,BinOp::modulo_op);}

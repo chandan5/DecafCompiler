@@ -26,13 +26,13 @@ public:
         int count_decls = 0;
         this->tabs++;
         this->printTabs();
-        if(node->getASTDeclarations() != NULL) {
-            count_decls = node->getASTDeclarations()->size();
+        if(node->getASTFieldDeclarations() != NULL) {
+            count_decls = node->getASTFieldDeclarations()->size();
         }
         cout << "<declarations count=\"" << count_decls << "\">" << endl;
         this->tabs++;
         if(count_decls)
-        for(auto it : *(node->getASTDeclarations())) {
+        for(auto it : *(node->getASTFieldDeclarations())) {
             this->printTabs();
             it->accept(this);
         }
@@ -40,19 +40,19 @@ public:
         this->printTabs();
         cout << "</declarations>" << endl;
         int count_stmts = 0;
-        if(node->getASTStatements() != NULL) {
-            count_stmts = node->getASTStatements()->size();
-        }
+        // if(node->getASTStatements() != NULL) {
+        //     count_stmts = node->getASTStatements()->size();
+        // }
         this->printTabs();
         cout << "<statements count=\"" << count_stmts << "\">" << endl;
         this->tabs++;
         if(count_stmts)
-        for(auto it : *(node->getASTStatements())) {
-            if(it == NULL)
-                cout << "Whoa!!! NULL" << endl;
-            this->printTabs();
-            it->accept(this);
-        }
+        // for(auto it : *(node->getASTStatements())) {
+        //     if(it == NULL)
+        //         cout << "Whoa!!! NULL" << endl;
+        //     this->printTabs();
+        //     it->accept(this);
+        // }
         this->tabs--;
         this->printTabs();
         cout << "</statements>" << endl;

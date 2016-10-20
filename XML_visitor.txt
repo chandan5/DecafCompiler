@@ -1,1 +1,6 @@
 <program>
+	<declarations count="4">
+									</declarations>
+	<statements count="0">
+		</statements>
+	</program>

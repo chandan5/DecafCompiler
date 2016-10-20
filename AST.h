@@ -25,12 +25,14 @@ class ASTMethodDeclaration;
 class ASTBlockStatement;
 class ASTParam;
 class ASTVarDeclaration;
+class ASTMethodCall;
+class ASTCalloutArg;
 
 enum AssignOp {
     equal,
     plus_equal,
     minus_equal
-}
+};
 
 enum DataType {
     int_type,
@@ -40,7 +42,7 @@ enum DataType {
 
 enum BinOp {
     plus_op,
-    minus_op,
+    sub_op,
     multiply_op,
     divide_op,
     modulo_op,
@@ -82,7 +84,8 @@ union NODE {
     ASTExpression * expr;
     ASTMethodCall * method_call;
     ASTLiteralExpression * literal;
-    class ASTCalloutArg * callout_arg;
+    vector<ASTCalloutArg *> * callout_args;
+    ASTCalloutArg * callout_arg;
     ASTLocation * location;
     DataType type;
     AssignOp assign_op;
@@ -107,10 +110,10 @@ public:
     }
     ~ASTProgram();
     std::vector<ASTFieldDeclaration *> * getASTFieldDeclarations() {
-        return this->method_decls;
+        return this->field_decls;
     }
-    std::vector<ASTStatement *> * getASTStatements() {
-        return this->stmts;
+    std::vector<ASTMethodDeclaration *> * getASTMethodDeclarations() {
+        return this->method_decls;
     }
     void accept(Visitor *v) {
         v->visit(this);
@@ -137,30 +140,13 @@ public:
 };
 
 class ASTMethodCall : public ASTNode {
+public:
     ASTMethodCall() {}
     ~ASTMethodCall() {}
     virtual void accept(Visitor *v) = 0;
 };
 
-class ASTMethodCallExpression : public ASTMethodCall, ASTExpression {
-    ASTMethodCall * method_call;
-public:
-    ASTMethodCallExpression(ASTMethodCall * method_call) {
-        this->method_call = method_call;
-    }
-    ~ASTMethodCallExpression() {}
-    virtual void accept(Visitor *v) = 0;
-};
 
-class ASTMethodCallStatement : public ASTMethodCall, ASTStatement {
-    ASTMethodCall * method_call;
-public:
-    ASTMethodCallStatement(ASTMethodCall * method_call) {
-        this->method_call = method_call;
-    }
-    ~ASTMethodCallStatement() {}
-    virtual void accept(Visitor *v) = 0;
-};
 
 class ASTSimpleMethodCall : public ASTMethodCall {
     string id;
@@ -178,9 +164,9 @@ public:
 
 class ASTCalloutMethodCall : public ASTMethodCall {
     string id;
-    vector<ASTCalloutArg *> callout_args;
+    vector<ASTCalloutArg *> * callout_args;
 public:
-    ASTCalloutMethodCall(string id, vector<ASTCalloutArg *> callout_args) {
+    ASTCalloutMethodCall(string id, vector<ASTCalloutArg *> * callout_args) {
         this->id = id;
         this->callout_args = callout_args;
     }
@@ -188,13 +174,20 @@ public:
     void accept(Visitor *v) {
 
     }
-}
+};
+
+class ASTStatement : public ASTNode {
+public:
+    ASTStatement() {}
+    ~ASTStatement() {}
+    void accept(Visitor *v) = 0;
+};
 
 class ASTBlockStatement : public ASTStatement {
-    std::vector<ASTVarLocation *> * var_decls;
+    std::vector<ASTVarDeclaration *> * var_decls;
     std::vector<ASTStatement *> * stmts;
 public:
-    ASTBlockStatement(vector<ASTVarLocation *> * var_decls, vector<ASTStatement *> * stmts) {
+    ASTBlockStatement(vector<ASTVarDeclaration *> * var_decls, vector<ASTStatement *> * stmts) {
         this->var_decls = var_decls;
         std::vector<ASTStatement *> * s = new std::vector<ASTStatement *>();
         if(stmts == NULL)
@@ -208,7 +201,7 @@ public:
         }
     }
     ~ASTBlockStatement() {}
-    std::vector<ASTStatement *> * getASTVarLocations() {
+    std::vector<ASTVarDeclaration *> * getASTVarDeclarations() {
         return this->var_decls;
     }
     std::vector<ASTStatement *> * getASTStatements() {
@@ -233,6 +226,9 @@ public:
         this->expr = expr;
     }
     ~ASTExpressionCalloutArg() {}
+    void accept(Visitor *v) {
+        // v->visit(this);
+    }
 };
 
 class ASTStringCalloutArg : public ASTCalloutArg {
@@ -242,7 +238,10 @@ public:
         this->val = val;
     }
     ~ASTStringCalloutArg() {}
-}
+    void accept(Visitor *v) {
+        // v->visit(this);
+    }
+};
 
 class ASTParam : public ASTNode {
     DataType type;
@@ -254,9 +253,9 @@ public:
     }
     ~ASTParam() {}
     void accept(Visitor *v) {
-        v->visit(this);
+        // v->visit(this);
     }
-}
+};
 
 class ASTFieldDeclaration : public ASTNode {
     DataType type;
@@ -327,12 +326,7 @@ public:
     }
 };
 
-class ASTStatement : public ASTNode {
-public:
-    ASTStatement() {}
-    ~ASTStatement() {}
-    void accept(Visitor *v) = 0;
-};
+
 
 class ASTAssignmentStatement : public ASTStatement {
     ASTLocation * location;
@@ -391,6 +385,7 @@ public:
 };
 
 class ASTReturnStatement : public ASTStatement {
+public:
     ASTExpression * expr;
     ASTReturnStatement(ASTExpression * expr) {
         this->expr = expr;
@@ -402,6 +397,7 @@ class ASTReturnStatement : public ASTStatement {
 };
 
 class ASTBreakStatement : public ASTStatement {
+public:
     ASTBreakStatement() {}
     ~ASTBreakStatement() {}
     void accept(Visitor *v) {
@@ -410,6 +406,7 @@ class ASTBreakStatement : public ASTStatement {
 };
 
 class ASTContinueStatement : public ASTStatement {
+public:
     ASTContinueStatement() {}
     ~ASTContinueStatement() {}
     void accept(Visitor *v) {
@@ -427,7 +424,7 @@ public:
 class ASTBinaryExpression : public ASTExpression {
     ASTExpression * left;
     ASTExpression * right;
-    BinOp op;2
+    BinOp op;
 public:
     ASTBinaryExpression(ASTExpression * left, ASTExpression * right, BinOp op) {
         this->left = left;
@@ -444,7 +441,7 @@ public:
         switch (this->op) {
             case BinOp::plus_op:
                 return "addition";
-            case BinOp::minus_op:
+            case BinOp::sub_op:
                 return "subtraction";
             case BinOp::multiply_op:
                 return "multiplication";
@@ -501,6 +498,30 @@ public:
     }
 };
 
+class ASTMethodCallExpression : public ASTMethodCall, public ASTExpression {
+    ASTMethodCall * method_call;
+public:
+    ASTMethodCallExpression(ASTMethodCall * method_call) {
+        this->method_call = method_call;
+    }
+    ~ASTMethodCallExpression() {}
+    void accept(Visitor *v) {
+        // v->visit(this);
+    }
+};
+
+class ASTMethodCallStatement : public ASTMethodCall, public ASTStatement {
+    ASTMethodCall * method_call;
+public:
+    ASTMethodCallStatement(ASTMethodCall * method_call) {
+        this->method_call = method_call;
+    }
+    ~ASTMethodCallStatement() {}
+    void accept(Visitor *v) {
+        // v->visit(this);
+    }
+};
+
 
 class ASTVarDeclaration : public ASTNode {
     DataType type;
@@ -510,8 +531,11 @@ public:
         this->type = type;
         this->identifiers = identifiers;
     }
-    ~ASTVarLocation() {}
-}
+    ~ASTVarDeclaration() {}
+    void accept(Visitor *v) {
+        // v->visit(this);
+    }
+};
 
 class ASTLocation : public ASTExpression {
 public:
