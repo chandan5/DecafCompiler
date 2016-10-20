@@ -2,8 +2,6 @@
 class ASTProgram;
 class ASTExpression;
 class ASTDeclaration;
-class ASTNormalDeclaration;
-class ASTArrayDeclaration;
 class ASTStatement;
 class ASTAssignmentStatement;
 class ASTBinaryExpression;
@@ -17,8 +15,8 @@ class Visitor {
 public:
     virtual void visit(ASTProgram *) = 0;
     // virtual void visit(ASTDeclaration *) = 0;
-    virtual void visit(ASTNormalDeclaration *) = 0;
-    virtual void visit(ASTArrayDeclaration *) = 0;
+    // virtual void visit(ASTNormalDeclaration *) = 0;
+    // virtual void visit(ASTArrayDeclaration *) = 0;
     virtual void visit(ASTAssignmentStatement *) = 0;
     // virtual void visit(ASTExpression *) = 0;
     virtual void visit(ASTBinaryExpression *) = 0;

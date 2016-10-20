@@ -60,12 +60,12 @@ public:
         this->printTabs();
         cout << "</program>" << endl;
     }
-    void visit(ASTNormalDeclaration * node) {
-        cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" />" << endl;
-    }
-    void visit(ASTArrayDeclaration * node) {
-        cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" size=\"" << node->getSize() << "\" />"<< endl;
-    }
+    // void visit(ASTNormalDeclaration * node) {
+    //     cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" />" << endl;
+    // }
+    // void visit(ASTArrayDeclaration * node) {
+    //     cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" size=\"" << node->getSize() << "\" />"<< endl;
+    // }
     void visit(ASTIntegerLiteralExpression * node) {
         cout << "<integer value=\"" << node->getVal() << "\" />" << endl;
     }
