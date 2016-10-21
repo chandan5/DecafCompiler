@@ -121,6 +121,9 @@ public:
     void visit(ASTIntegerLiteralExpression * node) {
         cout << "<integer value=\"" << node->getVal() << "\" />" << endl;
     }
+    void visit(ASTCharLiteralExpression * node) {
+        cout << "<char value=\"" << node->getVal() << "\" />" << endl;
+    }
     void visit(ASTBooleanLiteralExpression * node) {
         if(node->getVal() == true) {
             cout << "<boolean value=\"true\" />" << endl;
@@ -198,6 +201,77 @@ public:
         cout << "</assignment>" << endl;
     }
 
+    void visit(ASTIfStatement * node) {
+        cout << "<if_statement>" << endl;
+        this->tabs++;
+        this->printTabs();
+        node->getExpression()->accept(this);
+
+        this->printTabs();
+        node->getIfBlock()->accept(this);
+
+        if(node->getElseBlock())
+        {
+            this->printTabs();
+            node->getElseBlock()->accept(this);
+        }
+
+        this->tabs--;
+        this->printTabs();
+        cout << "</if_statement>" << endl;
+    }
+
+    void visit(ASTForStatement * node) {
+        cout << "<for_statement loop_variable=\"" << node->getId() << "\"" << " >" << endl;
+        this->tabs++;
+        this->printTabs();
+
+        cout << "<init_val>" << endl;
+        this->tabs++;
+        this->printTabs();
+        node->getInitVal()->accept(this);
+        this->tabs--;
+        this->printTabs();
+        cout << "</init_val>" << endl;
+
+        this->printTabs();
+        cout << "<end_val>" << endl;
+        this->tabs++;
+        this->printTabs();
+        node->getEndVal()->accept(this);
+        this->tabs--;
+        this->printTabs();
+        cout << "</end_val>" << endl;
+
+        this->printTabs();
+        node->getBlock()->accept(this);
+
+        this->tabs--;
+        this->printTabs();
+        cout << "</for_statement>" << endl;
+    }
+
+    void visit(ASTReturnStatement * node) {
+        cout << "<return_statement>" << endl;
+        if(node->getExpression()) {
+            this->tabs++;
+            this->printTabs();
+            node->getExpression()->accept(this);
+            this->tabs--;
+        }
+        this->printTabs();
+        cout << "</return_statement>" << endl;
+    }
+
+    void visit(ASTUnaryExpression * node) {
+        cout << "<unary_expression type=\"" << node->getUnOp() << "\">" << endl;
+        this->tabs++;
+        this->printTabs();
+        node->getExpression()->accept(this);
+        this->tabs--;
+        this->printTabs();
+        cout << "</unary_expression>" << endl;
+    }
     void visit(ASTBinaryExpression * node) {
         cout << "<binary_expression type=\"" << node->getBinOp() << "\">" << endl;
         this->tabs++;
@@ -230,6 +304,59 @@ public:
         this->tabs--;
         this->printTabs();
         cout << "</identifier>" << endl;
+    }
+
+    void visit(ASTSimpleMethodCall * node) {
+        cout << "<method_call>" << endl;
+        this->tabs++;
+        this->printTabs();
+
+        this->tabs--;
+        this->printTabs();
+        cout << "</method_call>" << endl;
+    }
+
+    void visit(ASTCalloutMethodCall * node) {
+        cout << "<method_call>" << endl;
+        this->tabs++;
+        this->printTabs();
+        cout << "<callout_call name=\"" << node->getId() << "\" >" << endl;
+        this->tabs++;
+        int count_callout_args = 0;
+        if(node->getCalloutArgs() != NULL) {
+            count_callout_args = node->getCalloutArgs()->size();
+        }
+        this->printTabs();
+        cout << "<callout_args count=\"" << count_callout_args << "\">" << endl;
+        this->tabs++;
+        if(count_callout_args)
+        for(auto it : *(node->getCalloutArgs())) {
+            this->printTabs();
+            it->accept(this);
+        }
+        this->tabs--;
+        this->printTabs();
+        cout << "</callout_args>" << endl;
+
+        this->tabs--;
+        this->printTabs();
+        cout << "</callout_call>" << endl;
+        this->tabs--;
+        this->printTabs();
+        cout << "</method_call>" << endl;
+    }
+
+    void visit(ASTExpressionCalloutArg * node) {
+        cout << "<callout_arg>" << endl;
+        this->tabs++;
+        this->printTabs();
+        node->getExpression()->accept(this);
+        this->tabs--;
+        this->printTabs();
+        cout << "</callout_arg>" << endl;
+    }
+    void visit(ASTStringCalloutArg * node) {
+        cout << "<callout_arg value=\"" << node->getVal() << "/>" << endl;
     }
 
 };

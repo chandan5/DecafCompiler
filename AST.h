@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <iostream>
 #include "Visitor.h"
 
 using namespace std;
@@ -176,6 +177,12 @@ public:
         this->id = id;
         this->exprs = exprs;
     }
+    string getId() {
+        return this->id;
+    }
+    vector<ASTExpression *> * getExpressions() {
+        return this->exprs;
+    }
     ~ASTSimpleMethodCall() {}
     void accept(Visitor *v) {
 
@@ -189,10 +196,18 @@ public:
     ASTCalloutMethodCall(string id, vector<ASTCalloutArg *> * callout_args) {
         this->id = id;
         this->callout_args = callout_args;
+        cout << "Construvtoe called" << endl;cout << "xYoX" << endl;
+    }
+    string getId() {
+        return this->id;
+    }
+    vector<ASTCalloutArg *> * getCalloutArgs() {
+        return this->callout_args;
     }
     ~ASTCalloutMethodCall() {}
     void accept(Visitor *v) {
-
+        std::cout << "Visiting ASTCalloutMethodCall" << std::endl;
+        v->visit(this);
     }
 };
 
@@ -245,9 +260,12 @@ public:
     ASTExpressionCalloutArg(ASTExpression * expr) {
         this->expr = expr;
     }
+    ASTExpression * getExpression() {
+        return this->expr;
+    }
     ~ASTExpressionCalloutArg() {}
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -258,8 +276,11 @@ public:
         this->val = val;
     }
     ~ASTStringCalloutArg() {}
+    string getVal() {
+        return this->val;
+    }
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -367,7 +388,7 @@ public:
     string getAssignOp() {
         switch (this->op) {
             case AssignOp::equal:
-                return "addition";
+                return "equal";
             case AssignOp::plus_equal:
                 return "plus_equal";
             case AssignOp::minus_equal:
@@ -389,9 +410,18 @@ public:
         this->ifBlock = ifBlock;
         this->elseBlock = elseBlock;
     }
+    ASTExpression * getExpression() {
+        return this->expr;
+    }
+    ASTBlockStatement * getIfBlock() {
+        return this->ifBlock;
+    }
+    ASTBlockStatement * getElseBlock() {
+        return this->elseBlock;
+    }
     ~ASTIfStatement() {}
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -408,8 +438,20 @@ public:
         this->block = block;
     }
     ~ASTForStatement() {}
+    string getId() {
+        return this->id;
+    }
+    ASTExpression * getInitVal() {
+        return this->init_val;
+    }
+    ASTExpression * getEndVal() {
+        return this->end_val;
+    }
+    ASTBlockStatement * getBlock() {
+        return this->block;
+    }
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -420,8 +462,11 @@ public:
         this->expr = expr;
     }
     ~ASTReturnStatement() {}
+    ASTExpression * getExpression() {
+        return this->expr;
+    }
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -523,7 +568,7 @@ public:
     }
     ~ASTUnaryExpression() {}
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -648,7 +693,7 @@ public:
     }
     ~ASTCharLiteralExpression() {}
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 

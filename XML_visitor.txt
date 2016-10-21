@@ -31,8 +31,56 @@
 						<declaration name="b" />
 					</var_declaration>
 				</declarations>
-				<statements count="3" >
-																			</statements>
+				<statements count="4" >
+					<if_statement>
+						<binary_expression type="is_not_equal">
+							<identifier name="e" />
+							<identifier name="a" />
+						</binary_expression>
+						<block>
+							<declarations count="0" >
+							</declarations>
+							<statements count="1" >
+															</statements>
+						</block>
+					</if_statement>
+					<for_statement loop_variable="i" >
+						<init_val>
+							<binary_expression type="addition">
+								<integer value="2" />
+								<integer value="3" />
+							</binary_expression>
+						</init_val>
+						<end_val>
+							<integer value="10" />
+						</end_val>
+						<block>
+							<declarations count="0" >
+							</declarations>
+							<statements count="1" >
+								<assignment type="equal" >
+									<LHS name="x">
+									</LHS>
+									<RHS>
+										<binary_expression type="addition">
+											<identifier name="y" />
+											<identifier name="i" />
+										</binary_expression>
+									</RHS>
+								</assignment>
+							</statements>
+						</block>
+					</for_statement>
+										<return_statement>
+						<binary_expression type="addition">
+							<integer value="12" />
+							<binary_expression type="subtraction">
+								<integer value="12" />
+								<integer value="3" />
+							</binary_expression>
+						</binary_expression>
+					</return_statement>
+				</statements>
 			</block>
 		</method_declaration>
 	</method_declarations>

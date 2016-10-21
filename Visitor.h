@@ -19,6 +19,15 @@ class ASTBlockStatement;
 class ASTVarDeclaration;
 class ASTBreakStatement;
 class ASTContinueStatement;
+class ASTIfStatement;
+class ASTForStatement;
+class ASTReturnStatement;
+class ASTUnaryExpression;
+class ASTCharLiteralExpression;
+class ASTExpressionCalloutArg;
+class ASTStringCalloutArg;
+class ASTCalloutMethodCall;
+class ASTSimpleMethodCall;
 
 class Visitor {
 public:
@@ -34,6 +43,7 @@ public:
     virtual void visit(ASTArrayLocation *) = 0;
     virtual void visit(ASTIntegerLiteralExpression *) = 0;
     virtual void visit(ASTBooleanLiteralExpression *) = 0;
+    virtual void visit(ASTCharLiteralExpression *) = 0;
     virtual void visit(ASTMethodDeclaration *) = 0;
     virtual void visit(ASTFieldDeclaration *) = 0;
     virtual void visit(ASTNormalIdentifier *) = 0;
@@ -43,4 +53,13 @@ public:
     virtual void visit(ASTBlockStatement * node) = 0;
     virtual void visit(ASTBreakStatement * node) = 0;
     virtual void visit(ASTContinueStatement * node) = 0;
+    virtual void visit(ASTIfStatement * node) = 0;
+    virtual void visit(ASTForStatement * node) = 0;
+    virtual void visit(ASTReturnStatement * node) = 0;
+    virtual void visit(ASTUnaryExpression * node) = 0;
+    virtual void visit(ASTExpressionCalloutArg * node) = 0;
+    virtual void visit(ASTStringCalloutArg * node) = 0;
+    virtual void visit(ASTCalloutMethodCall * node) = 0;
+    virtual void visit(ASTSimpleMethodCall * node) = 0;
+
 };
