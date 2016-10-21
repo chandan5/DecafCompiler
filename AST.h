@@ -135,6 +135,7 @@ public:
     }
     ~ASTMethodDeclaration() {}
     void accept(Visitor *v) {
+
         // v->visit(this);
     }
 };
@@ -279,8 +280,11 @@ public:
     string getDataType() {
         return ASTFieldDeclaration::stringFromDataType(this->type);
     }
+    vector<ASTIdentifier *> * getIdentifiers() {
+        return this->identifiers;
+    }
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -302,7 +306,7 @@ public:
         return this->id;
     }
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -322,7 +326,7 @@ public:
     }
     ~ASTArrayIdentifier(){}
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 

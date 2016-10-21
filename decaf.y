@@ -177,8 +177,6 @@ using namespace std;
             |   FALSE {$$ = new ASTBooleanLiteralExpression(false);}
     type :  INT {$$ = DataType::int_type;}
         |   BOOLEAN {$$ = DataType::bool_type;}
-    // str: STRING_VALUE  { cout << "String literal : "  << $1 << endl; }
-
 %%
 
 void yyerror (const char *s) {

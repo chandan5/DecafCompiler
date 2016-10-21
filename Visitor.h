@@ -2,6 +2,7 @@
 class ASTProgram;
 class ASTExpression;
 class ASTDeclaration;
+class ASTMethodDeclaration;
 class ASTStatement;
 class ASTAssignmentStatement;
 class ASTBinaryExpression;
@@ -10,6 +11,9 @@ class ASTVarLocation;
 class ASTArrayLocation;
 class ASTIntegerLiteralExpression;
 class ASTBooleanLiteralExpression;
+class ASTFieldDeclaration;
+class ASTNormalIdentifier;
+class ASTArrayIdentifier;
 
 class Visitor {
 public:
@@ -25,4 +29,8 @@ public:
     virtual void visit(ASTArrayLocation *) = 0;
     virtual void visit(ASTIntegerLiteralExpression *) = 0;
     virtual void visit(ASTBooleanLiteralExpression *) = 0;
+    virtual void visit(ASTMethodDeclaration *) = 0;
+    virtual void visit(ASTFieldDeclaration *) = 0;
+    virtual void visit(ASTNormalIdentifier *) = 0;
+    virtual void visit(ASTArrayIdentifier *) = 0;
 };

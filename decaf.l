@@ -2,6 +2,7 @@
 #define YY_DECL extern "C" int yylex()
 #include "AST.h"
 #include "decaf.tab.hh"
+#include <iostream>
 // error_count increased whenever some string is encountered which can not be one of the terminal
 extern int error_count;
 // "%option yylineno" automatic line number counter provided by flex
@@ -69,7 +70,7 @@ false {
     return IDENTIFIER;
 }
 0x{HEXADECIMAL}+ {
-	yylval.ival = atoi(yytext);
+	yylval.ival = strtol(yytext,NULL,16);
 	return INT_VALUE;
 }
 \"{CHAR}*\" {

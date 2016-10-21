@@ -1,6 +1,23 @@
 <program>
-	<declarations count="4">
-									</declarations>
-	<statements count="0">
-		</statements>
-	</program>
+	<field_declarations count="4">
+		<field_declaration " type="integer">
+			<declaration name="a" />
+			<declaration name="b" />
+			<declaration name="c" />
+			<declaration name="d" size="20" />
+		</field_declaration>
+		<field_declaration " type="integer">
+			<declaration name="d" size="100" />
+			<declaration name="e" size="1000" />
+			<declaration name="f" size="7012319" />
+		</field_declaration>
+		<field_declaration " type="boolean">
+			<declaration name="xxx" />
+		</field_declaration>
+		<field_declaration " type="boolean">
+			<declaration name="x" size="12" />
+		</field_declaration>
+	</field_declarations>
+	<statements count="1">
+			</statements>
+</program>

@@ -23,36 +23,34 @@ public:
     }
     void visit(ASTProgram * node) {
         cout << "<program>" << endl;
-        int count_decls = 0;
+        int count_field_decls = 0;
         this->tabs++;
         this->printTabs();
         if(node->getASTFieldDeclarations() != NULL) {
-            count_decls = node->getASTFieldDeclarations()->size();
+            count_field_decls = node->getASTFieldDeclarations()->size();
         }
-        cout << "<declarations count=\"" << count_decls << "\">" << endl;
+        cout << "<field_declarations count=\"" << count_field_decls << "\">" << endl;
         this->tabs++;
-        if(count_decls)
+        if(count_field_decls)
         for(auto it : *(node->getASTFieldDeclarations())) {
             this->printTabs();
             it->accept(this);
         }
         this->tabs--;
         this->printTabs();
-        cout << "</declarations>" << endl;
-        int count_stmts = 0;
-        // if(node->getASTStatements() != NULL) {
-        //     count_stmts = node->getASTStatements()->size();
-        // }
+        cout << "</field_declarations>" << endl;
+        int count_method_decls = 0;
+        if(node->getASTMethodDeclarations() != NULL) {
+            count_method_decls = node->getASTMethodDeclarations()->size();
+        }
         this->printTabs();
-        cout << "<statements count=\"" << count_stmts << "\">" << endl;
+        cout << "<statements count=\"" << count_method_decls << "\">" << endl;
         this->tabs++;
-        if(count_stmts)
-        // for(auto it : *(node->getASTStatements())) {
-        //     if(it == NULL)
-        //         cout << "Whoa!!! NULL" << endl;
-        //     this->printTabs();
-        //     it->accept(this);
-        // }
+        if(count_method_decls)
+        for(auto it : *(node->getASTMethodDeclarations())) {
+            this->printTabs();
+            it->accept(this);
+        }
         this->tabs--;
         this->printTabs();
         cout << "</statements>" << endl;
@@ -60,12 +58,29 @@ public:
         this->printTabs();
         cout << "</program>" << endl;
     }
-    // void visit(ASTNormalDeclaration * node) {
-    //     cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" />" << endl;
-    // }
-    // void visit(ASTArrayDeclaration * node) {
-    //     cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" size=\"" << node->getSize() << "\" />"<< endl;
-    // }
+
+    void visit(ASTFieldDeclaration * node) {
+        cout << "<field_declaration " << "\" type=\"" << node->getDataType() << "\">" << endl;
+        this->tabs++;
+        for(auto it : *(node->getIdentifiers())) {
+            this->printTabs();
+            it->accept(this);
+        }
+        this->tabs--;
+        this->printTabs();
+        cout << "</field_declaration>" << endl;
+    }
+    void visit(ASTNormalIdentifier * node) {
+        cout << "<declaration name=\"" << node->getId() << "\" />" << endl;
+        // cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" />" << endl;
+    }
+    void visit(ASTArrayIdentifier * node) {
+        cout << "<declaration name=\"" << node->getId() << "\" size=\"" << node->getSize() << "\" />"<< endl;
+        // cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" size=\"" << node->getSize() << "\" />"<< endl;
+    }
+    void visit(ASTMethodDeclaration * node) {
+        cout << "method declaration" << endl;
+    }
     void visit(ASTIntegerLiteralExpression * node) {
         cout << "<integer value=\"" << node->getVal() << "\" />" << endl;
     }
