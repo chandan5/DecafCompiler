@@ -109,6 +109,7 @@ public:
         this->tabs--;
         this->printTabs();
         cout << "</params>" << endl;
+        this->printTabs();
         node->getBlock()->accept(this);
         this->tabs--;
         this->printTabs();
@@ -129,11 +130,48 @@ public:
         }
     }
     void visit(ASTBlockStatement * node) {
-        
+        cout << "<block>" << endl;
+        this->tabs++;
+        // TODO shift count in AST.h
+        int count_decls = 0;
+        if(node->getASTVarDeclarations() != NULL) {
+            count_decls = node->getASTVarDeclarations()->size();
+        }
+        this->printTabs();
+        cout << "<declarations count=\"" << count_decls <<  "\" >" << endl;
+        this->tabs++;
+        if(count_decls)
+        for(auto it : *(node->getASTVarDeclarations())) {
+            this->printTabs();
+            it->accept(this);
+        }
+        this->tabs--;
+        this->printTabs();
+        cout << "</declarations>" << endl;
+
+        int count_stmts = 0;
+        if(node->getASTStatements() != NULL) {
+            count_stmts = node->getASTStatements()->size();
+        }
+        this->printTabs();
+        cout << "<statements count=\"" << count_stmts <<  "\" >" << endl;
+        this->tabs++;
+        if(count_stmts)
+        for(auto it : *(node->getASTStatements())) {
+            this->printTabs();
+            it->accept(this);
+        }
+        this->tabs--;
+        this->printTabs();
+        cout << "</statements>" << endl;
+
+        this->tabs--;
+        this->printTabs();
+        cout << "</block>" << endl;
     }
 
     void visit(ASTAssignmentStatement * node) {
-        cout << "<assignment>" << endl;
+        cout << "<assignment type=\"" << node->getAssignOp() << "\"" << " >" << endl;
         this->tabs++;
         this->printTabs();
         cout << "<LHS name=\"" << node->getASTlocation()->getId() << "\">" << endl;
@@ -170,6 +208,14 @@ public:
         this->tabs--;
         this->printTabs();
         cout << "</binary_expression>" << endl;
+    }
+
+    void visit(ASTBreakStatement * node) {
+        cout << "<break_statement/>"<< endl;
+    }
+
+    void visit(ASTContinueStatement * node) {
+        cout << "<continue_statement/>"<< endl;
     }
 
     void visit(ASTVarLocation * node) {

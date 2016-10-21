@@ -19,11 +19,21 @@
 		</field_declaration>
 	</field_declarations>
 	<method_declarations count="1">
-		<method_declarations name="someFunc" type="integer" >
+		<method_declaration name="someFunc" type="integer" >
 			<params count="2" >
 				<param name="y" type="integer" >
 				<param name="xxx" type="boolean" >
 			</params>
-		</method_declarations>
+			<block>
+				<declarations count="1" >
+					<var_declaration type="integer">
+						<declaration name="a" />
+						<declaration name="b" />
+					</var_declaration>
+				</declarations>
+				<statements count="3" >
+																			</statements>
+			</block>
+		</method_declaration>
 	</method_declarations>
 </program>

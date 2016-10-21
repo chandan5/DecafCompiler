@@ -350,12 +350,12 @@ public:
 class ASTAssignmentStatement : public ASTStatement {
     ASTLocation * location;
     ASTExpression * expr;
-    AssignOp assign_op;
+    AssignOp op;
 public:
-    ASTAssignmentStatement(ASTLocation * location, ASTExpression * expr, AssignOp assign_op) {
+    ASTAssignmentStatement(ASTLocation * location, ASTExpression * expr, AssignOp op) {
         this->location = location;
         this->expr = expr;
-        this->assign_op = assign_op;
+        this->op = op;
     }
     ~ASTAssignmentStatement();
     ASTLocation * getASTlocation() {
@@ -363,6 +363,16 @@ public:
     }
     ASTExpression * getASTExpression() {
         return this->expr;
+    }
+    string getAssignOp() {
+        switch (this->op) {
+            case AssignOp::equal:
+                return "addition";
+            case AssignOp::plus_equal:
+                return "plus_equal";
+            case AssignOp::minus_equal:
+                return "minus_equal";
+        }
     }
     void accept(Visitor *v) {
         v->visit(this);
@@ -420,7 +430,7 @@ public:
     ASTBreakStatement() {}
     ~ASTBreakStatement() {}
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -429,7 +439,7 @@ public:
     ASTContinueStatement() {}
     ~ASTContinueStatement() {}
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -558,7 +568,7 @@ public:
         return ASTNode::stringFromDataType(type);
     }
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
