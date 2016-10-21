@@ -44,7 +44,7 @@ public:
             count_method_decls = node->getASTMethodDeclarations()->size();
         }
         this->printTabs();
-        cout << "<statements count=\"" << count_method_decls << "\">" << endl;
+        cout << "<method_declarations count=\"" << count_method_decls << "\">" << endl;
         this->tabs++;
         if(count_method_decls)
         for(auto it : *(node->getASTMethodDeclarations())) {
@@ -53,14 +53,14 @@ public:
         }
         this->tabs--;
         this->printTabs();
-        cout << "</statements>" << endl;
+        cout << "</method_declarations>" << endl;
         this->tabs--;
         this->printTabs();
         cout << "</program>" << endl;
     }
 
     void visit(ASTFieldDeclaration * node) {
-        cout << "<field_declaration " << "\" type=\"" << node->getDataType() << "\">" << endl;
+        cout << "<field_declaration " << "type=\"" << node->getDataType() << "\">" << endl;
         this->tabs++;
         for(auto it : *(node->getIdentifiers())) {
             this->printTabs();
@@ -70,6 +70,18 @@ public:
         this->printTabs();
         cout << "</field_declaration>" << endl;
     }
+    void visit(ASTVarDeclaration * node) {
+        cout << "<var_declaration " << "type=\"" << node->getDataType() << "\">" << endl;
+        this->tabs++;
+        for(auto it : *(node->getIdentifiers())) {
+            this->printTabs();
+            it->accept(this);
+        }
+        this->tabs--;
+        this->printTabs();
+        cout << "</var_declaration>" << endl;
+    }
+
     void visit(ASTNormalIdentifier * node) {
         cout << "<declaration name=\"" << node->getId() << "\" />" << endl;
         // cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" />" << endl;
@@ -79,7 +91,31 @@ public:
         // cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" size=\"" << node->getSize() << "\" />"<< endl;
     }
     void visit(ASTMethodDeclaration * node) {
-        cout << "method declaration" << endl;
+        cout << "<method_declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" >" << endl;
+        this->tabs++;
+        // TODO shift count in AST.h
+        int count_params = 0;
+        if(node->getParams() != NULL) {
+            count_params = node->getParams()->size();
+        }
+        this->printTabs();
+        cout << "<params count=\"" << count_params <<  "\" >" << endl;
+        this->tabs++;
+        if(count_params)
+        for(auto it : *(node->getParams())) {
+            this->printTabs();
+            it->accept(this);
+        }
+        this->tabs--;
+        this->printTabs();
+        cout << "</params>" << endl;
+        node->getBlock()->accept(this);
+        this->tabs--;
+        this->printTabs();
+        cout << "</method_declaration>" << endl;
+    }
+    void visit(ASTParam * node) {
+        cout << "<param name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" >" << endl;
     }
     void visit(ASTIntegerLiteralExpression * node) {
         cout << "<integer value=\"" << node->getVal() << "\" />" << endl;
@@ -92,6 +128,10 @@ public:
             cout << "<boolean value=\"false\" />" << endl;
         }
     }
+    void visit(ASTBlockStatement * node) {
+        
+    }
+
     void visit(ASTAssignmentStatement * node) {
         cout << "<assignment>" << endl;
         this->tabs++;

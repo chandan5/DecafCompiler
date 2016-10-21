@@ -121,8 +121,8 @@ using namespace std;
     var_decls : var_decl {$$ = new vector<ASTVarDeclaration *>(); $$->push_back($1);}
             |   var_decls var_decl {$1->push_back($2); $$ = $1;}
     var_decl : type identifiers SEMICOLON {$$ = new ASTVarDeclaration($1,$2);}
-    identifiers : IDENTIFIER {$$ = new vector<ASTVarLocation *>(); $$->push_back(new ASTVarLocation(string($1)));}
-                | identifiers COMMA IDENTIFIER {$1->push_back(new ASTVarLocation(string($3))); $$ = $1;}
+    identifiers : IDENTIFIER {$$ = new vector<ASTNormalIdentifier *>(); $$->push_back(new ASTNormalIdentifier(string($1)));}
+                | identifiers COMMA IDENTIFIER {$1->push_back(new ASTNormalIdentifier(string($3))); $$ = $1;}
     statements :    statement {$$ = new vector<ASTStatement *>(); $$->push_back($1);}
                 |   statements statement {$1->push_back($2); $$ = $1;}
     statement : location assign_op expr SEMICOLON {$$ = new ASTAssignmentStatement($1,$3,$2);}

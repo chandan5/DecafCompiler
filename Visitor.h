@@ -14,6 +14,8 @@ class ASTBooleanLiteralExpression;
 class ASTFieldDeclaration;
 class ASTNormalIdentifier;
 class ASTArrayIdentifier;
+class ASTParam;
+class ASTBlockStatement;
 
 class Visitor {
 public:
@@ -33,4 +35,6 @@ public:
     virtual void visit(ASTFieldDeclaration *) = 0;
     virtual void visit(ASTNormalIdentifier *) = 0;
     virtual void visit(ASTArrayIdentifier *) = 0;
+    virtual void visit(ASTParam *) = 0;
+    virtual void visit(ASTBlockStatement * node) = 0;
 };

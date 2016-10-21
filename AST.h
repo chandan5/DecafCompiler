@@ -77,7 +77,7 @@ union NODE {
     ASTBlockStatement * block;
     ASTParam * param;
     vector<ASTParam *> * params;
-    vector<ASTVarLocation *> * identifiers;
+    vector<ASTNormalIdentifier *> * identifiers;
     vector<ASTIdentifier *> * identifier_opt_arrs;
     ASTIdentifier * identifier_opt_arr;
     vector<ASTExpression *> * exprs;
@@ -97,6 +97,16 @@ class ASTNode {
 public:
     ASTNode() {}
     ~ASTNode() {}
+    static string stringFromDataType(DataType d) {
+        switch (d) {
+            case DataType::int_type:
+                return "integer";
+            case DataType::bool_type:
+                return "boolean";
+            case DataType::void_type:
+                return "void";
+        }
+    }
     virtual void accept(Visitor *v) = 0;
 };
 
@@ -133,10 +143,21 @@ public:
         this->params = params;
         this->block = block;
     }
+    string getDataType() {
+        return ASTNode::stringFromDataType(this->type);
+    }
+    string getId() {
+        return this->id;
+    }
+    vector<ASTParam *> * getParams() {
+        return this->params;
+    }
+    ASTBlockStatement * getBlock() {
+        return this->block;
+    }
     ~ASTMethodDeclaration() {}
     void accept(Visitor *v) {
-
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -146,8 +167,6 @@ public:
     ~ASTMethodCall() {}
     virtual void accept(Visitor *v) = 0;
 };
-
-
 
 class ASTSimpleMethodCall : public ASTMethodCall {
     string id;
@@ -209,7 +228,7 @@ public:
         return this->stmts;
     }
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -252,9 +271,15 @@ public:
         this->type = type;
         this->id = id;
     }
+    string getId() {
+        return this->id;
+    }
+    string getDataType() {
+        return ASTNode::stringFromDataType(this->type);
+    }
     ~ASTParam() {}
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
@@ -267,18 +292,8 @@ public:
         this->identifiers = identifiers;
     }
     ~ASTFieldDeclaration(){}
-    static string stringFromDataType(DataType d) {
-        switch (d) {
-            case DataType::int_type:
-                return "integer";
-            case DataType::bool_type:
-                return "boolean";
-            case DataType::void_type:
-                return "void";
-        }
-    }
     string getDataType() {
-        return ASTFieldDeclaration::stringFromDataType(this->type);
+        return ASTNode::stringFromDataType(this->type);
     }
     vector<ASTIdentifier *> * getIdentifiers() {
         return this->identifiers;
@@ -529,13 +544,19 @@ public:
 
 class ASTVarDeclaration : public ASTNode {
     DataType type;
-    vector<ASTVarLocation *> * identifiers;
+    vector<ASTNormalIdentifier *> * identifiers;
 public:
-    ASTVarDeclaration(DataType type, vector<ASTVarLocation *> * identifiers) {
+    ASTVarDeclaration(DataType type, vector<ASTNormalIdentifier *> * identifiers) {
         this->type = type;
         this->identifiers = identifiers;
     }
     ~ASTVarDeclaration() {}
+    vector<ASTNormalIdentifier *> * getIdentifiers() {
+        return this->identifiers;
+    }
+    string getDataType() {
+        return ASTNode::stringFromDataType(type);
+    }
     void accept(Visitor *v) {
         // v->visit(this);
     }
