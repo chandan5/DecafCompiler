@@ -139,7 +139,7 @@ using namespace std;
 
     method_call : IDENTIFIER OPEN_PARANTHESIS CLOSE_PARANTHESIS {$$ = new ASTSimpleMethodCall($1,NULL);}
             |     IDENTIFIER OPEN_PARANTHESIS exprs CLOSE_PARANTHESIS {$$ = new ASTSimpleMethodCall($1,$3);}
-            |     CALLOUT OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS {cout << "xYoX" << endl; $$ = new ASTCalloutMethodCall(string($3),NULL); cout << "xYoXAQ" << endl; }
+            |     CALLOUT OPEN_PARANTHESIS STRING_VALUE CLOSE_PARANTHESIS {$$ = new ASTCalloutMethodCall(string($3),NULL);}
             |     CALLOUT OPEN_PARANTHESIS STRING_VALUE callout_args CLOSE_PARANTHESIS {$$ = new ASTCalloutMethodCall(string($3),$4);}
     exprs : expr {$$ = new vector<ASTExpression *>(); $$->push_back($1);}
         |   exprs COMMA expr {$1->push_back($3); $$ = $1;}

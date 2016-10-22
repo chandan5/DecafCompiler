@@ -6,11 +6,11 @@ class Program {
     int someFunc(int y, boolean xxx) {
         int a, b;
         if(e != a) {
-            callout("scanf");
-            //callout("scanf",2,a,'c');
+            callout("scanf",2,a,'c');
         }
         for i=2+3 , 10 {
             x = y+i;
+            y = 2+3*(7);
         }
         func1(a,'a');
         return (12+(12-3));

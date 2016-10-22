@@ -28,6 +28,8 @@ class ASTExpressionCalloutArg;
 class ASTStringCalloutArg;
 class ASTCalloutMethodCall;
 class ASTSimpleMethodCall;
+class ASTMethodCallStatement;
+class ASTMethodCallExpression;
 
 class Visitor {
 public:
@@ -61,5 +63,7 @@ public:
     virtual void visit(ASTStringCalloutArg * node) = 0;
     virtual void visit(ASTCalloutMethodCall * node) = 0;
     virtual void visit(ASTSimpleMethodCall * node) = 0;
+    virtual void visit(ASTMethodCallStatement * node) = 0;
+    virtual void visit(ASTMethodCallExpression * node) = 0;
 
 };

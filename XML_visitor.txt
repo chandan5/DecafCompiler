@@ -41,7 +41,16 @@
 							<declarations count="0" >
 							</declarations>
 							<statements count="1" >
-															</statements>
+								<method_call>
+									<callout_call name="scanf" >
+										<callout_args count="3">
+											<integer value="2" />
+											<identifier name="a" />
+											<char value="c" />
+										</callout_args>
+									</callout_call>
+								</method_call>
+							</statements>
 						</block>
 					</if_statement>
 					<for_statement loop_variable="i" >
@@ -57,7 +66,7 @@
 						<block>
 							<declarations count="0" >
 							</declarations>
-							<statements count="1" >
+							<statements count="2" >
 								<assignment type="equal" >
 									<LHS name="x">
 									</LHS>
@@ -68,10 +77,29 @@
 										</binary_expression>
 									</RHS>
 								</assignment>
+								<assignment type="equal" >
+									<LHS name="y">
+									</LHS>
+									<RHS>
+										<binary_expression type="addition">
+											<integer value="2" />
+											<binary_expression type="multiplication">
+												<integer value="3" />
+												<integer value="7" />
+											</binary_expression>
+										</binary_expression>
+									</RHS>
+								</assignment>
 							</statements>
 						</block>
 					</for_statement>
-										<return_statement>
+					<method_call name="func1" >
+						<expressions count="2">
+							<identifier name="a" />
+							<char value="a" />
+						</expressions>
+					</method_call>
+					<return_statement>
 						<binary_expression type="addition">
 							<integer value="12" />
 							<binary_expression type="subtraction">

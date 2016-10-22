@@ -306,11 +306,32 @@ public:
         cout << "</identifier>" << endl;
     }
 
+    void visit(ASTMethodCallExpression * node) {
+        node->getASTMethodCall()->accept(this);
+    }
+
+    void visit(ASTMethodCallStatement * node) {
+        node->getASTMethodCall()->accept(this);
+    }
+
     void visit(ASTSimpleMethodCall * node) {
-        cout << "<method_call>" << endl;
+        cout << "<method_call name=\"" << node->getId() << "\" >" << endl;
         this->tabs++;
         this->printTabs();
-
+        int count_exprs = 0;
+        if(node->getExpressions() != NULL) {
+            count_exprs = node->getExpressions()->size();
+        }
+        cout << "<expressions count=\"" << count_exprs << "\">" << endl;
+        this->tabs++;
+        if(count_exprs)
+        for(auto it : *(node->getExpressions())) {
+            this->printTabs();
+            it->accept(this);
+        }
+        this->tabs--;
+        this->printTabs();
+        cout << "</expressions>" << endl;
         this->tabs--;
         this->printTabs();
         cout << "</method_call>" << endl;
@@ -347,13 +368,7 @@ public:
     }
 
     void visit(ASTExpressionCalloutArg * node) {
-        cout << "<callout_arg>" << endl;
-        this->tabs++;
-        this->printTabs();
         node->getExpression()->accept(this);
-        this->tabs--;
-        this->printTabs();
-        cout << "</callout_arg>" << endl;
     }
     void visit(ASTStringCalloutArg * node) {
         cout << "<callout_arg value=\"" << node->getVal() << "/>" << endl;

@@ -185,7 +185,7 @@ public:
     }
     ~ASTSimpleMethodCall() {}
     void accept(Visitor *v) {
-
+        v->visit(this);
     }
 };
 
@@ -196,7 +196,6 @@ public:
     ASTCalloutMethodCall(string id, vector<ASTCalloutArg *> * callout_args) {
         this->id = id;
         this->callout_args = callout_args;
-        cout << "Construvtoe called" << endl;cout << "xYoX" << endl;
     }
     string getId() {
         return this->id;
@@ -206,7 +205,6 @@ public:
     }
     ~ASTCalloutMethodCall() {}
     void accept(Visitor *v) {
-        std::cout << "Visiting ASTCalloutMethodCall" << std::endl;
         v->visit(this);
     }
 };
@@ -578,11 +576,15 @@ public:
     ASTMethodCallExpression(ASTMethodCall * method_call) {
         this->method_call = method_call;
     }
+    ASTMethodCall * getASTMethodCall() {
+        return this->method_call;
+    }
     ~ASTMethodCallExpression() {}
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
+
 
 class ASTMethodCallStatement : public ASTMethodCall, public ASTStatement {
     ASTMethodCall * method_call;
@@ -590,9 +592,12 @@ public:
     ASTMethodCallStatement(ASTMethodCall * method_call) {
         this->method_call = method_call;
     }
+    ASTMethodCall * getASTMethodCall() {
+        return this->method_call;
+    }
     ~ASTMethodCallStatement() {}
     void accept(Visitor *v) {
-        // v->visit(this);
+        v->visit(this);
     }
 };
 
