@@ -108,7 +108,7 @@ public:
                 return "void";
         }
     }
-    virtual void accept(Visitor *v) = 0;
+    virtual void * accept(Visitor *v) = 0;
 };
 
 class ASTProgram : public ASTNode {
@@ -126,7 +126,7 @@ public:
     std::vector<ASTMethodDeclaration *> * getASTMethodDeclarations() {
         return this->method_decls;
     }
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -157,7 +157,7 @@ public:
         return this->block;
     }
     ~ASTMethodDeclaration() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -166,7 +166,7 @@ class ASTMethodCall : public ASTNode {
 public:
     ASTMethodCall() {}
     ~ASTMethodCall() {}
-    virtual void accept(Visitor *v) = 0;
+    virtual void * accept(Visitor *v) = 0;
 };
 
 class ASTSimpleMethodCall : public ASTMethodCall {
@@ -184,7 +184,7 @@ public:
         return this->exprs;
     }
     ~ASTSimpleMethodCall() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -204,7 +204,7 @@ public:
         return this->callout_args;
     }
     ~ASTCalloutMethodCall() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -213,7 +213,7 @@ class ASTStatement : public ASTNode {
 public:
     ASTStatement() {}
     ~ASTStatement() {}
-    void accept(Visitor *v) = 0;
+    void * accept(Visitor *v) = 0;
 };
 
 class ASTBlockStatement : public ASTStatement {
@@ -240,7 +240,7 @@ public:
     std::vector<ASTStatement *> * getASTStatements() {
         return this->stmts;
     }
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -249,7 +249,7 @@ class ASTCalloutArg : public ASTNode {
 public:
     ASTCalloutArg() {}
     ~ASTCalloutArg() {}
-    virtual void accept(Visitor *v) = 0;
+    virtual void * accept(Visitor *v) = 0;
 };
 
 class ASTExpressionCalloutArg : public ASTCalloutArg {
@@ -262,7 +262,7 @@ public:
         return this->expr;
     }
     ~ASTExpressionCalloutArg() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -277,7 +277,7 @@ public:
     string getVal() {
         return this->val;
     }
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -297,7 +297,7 @@ public:
         return ASTNode::stringFromDataType(this->type);
     }
     ~ASTParam() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -317,7 +317,7 @@ public:
     vector<ASTIdentifier *> * getIdentifiers() {
         return this->identifiers;
     }
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -326,7 +326,7 @@ class ASTIdentifier :public ASTNode {
 public:
     ASTIdentifier() {}
     ~ASTIdentifier() {}
-    virtual void accept(Visitor *v) = 0;
+    virtual void * accept(Visitor *v) = 0;
 };
 
 class ASTNormalIdentifier : public ASTIdentifier {
@@ -339,7 +339,7 @@ public:
     string getId() {
         return this->id;
     }
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -359,7 +359,7 @@ public:
         return this->size;
     }
     ~ASTArrayIdentifier(){}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -393,7 +393,7 @@ public:
                 return "minus_equal";
         }
     }
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -418,7 +418,7 @@ public:
         return this->elseBlock;
     }
     ~ASTIfStatement() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -448,7 +448,7 @@ public:
     ASTBlockStatement * getBlock() {
         return this->block;
     }
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -463,7 +463,7 @@ public:
     ASTExpression * getExpression() {
         return this->expr;
     }
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -472,7 +472,7 @@ class ASTBreakStatement : public ASTStatement {
 public:
     ASTBreakStatement() {}
     ~ASTBreakStatement() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -481,7 +481,7 @@ class ASTContinueStatement : public ASTStatement {
 public:
     ASTContinueStatement() {}
     ~ASTContinueStatement() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -490,7 +490,7 @@ class ASTExpression : public ASTNode {
 public:
     ASTExpression(){}
     ~ASTExpression(){}
-    void accept(Visitor *v) = 0;
+    void * accept(Visitor *v) = 0;
 };
 
 class ASTBinaryExpression : public ASTExpression {
@@ -540,7 +540,7 @@ public:
         }
     }
     ~ASTBinaryExpression() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -565,7 +565,7 @@ public:
         }
     }
     ~ASTUnaryExpression() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -580,7 +580,7 @@ public:
         return this->method_call;
     }
     ~ASTMethodCallExpression() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -596,7 +596,7 @@ public:
         return this->method_call;
     }
     ~ASTMethodCallStatement() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -617,7 +617,7 @@ public:
     string getDataType() {
         return ASTNode::stringFromDataType(type);
     }
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -626,7 +626,7 @@ class ASTLocation : public ASTExpression {
 public:
     ASTLocation() {}
     ~ASTLocation() {}
-    void accept(Visitor *v) = 0;
+    void * accept(Visitor *v) = 0;
     virtual string getId() = 0;
 };
 
@@ -640,7 +640,7 @@ public:
         return this->id;
     }
     ~ASTVarLocation() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -660,7 +660,7 @@ public:
         return this->expr;
     }
     ~ASTArrayLocation() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -669,7 +669,7 @@ class ASTLiteralExpression : public ASTExpression {
 public:
     ASTLiteralExpression(){}
     ~ASTLiteralExpression(){}
-    void accept(Visitor *v) = 0;
+    void * accept(Visitor *v) = 0;
 };
 
 class ASTIntegerLiteralExpression : public ASTLiteralExpression {
@@ -682,7 +682,7 @@ public:
         return this->val;
     }
     ~ASTIntegerLiteralExpression() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -697,7 +697,7 @@ public:
         return this->val;
     }
     ~ASTCharLiteralExpression() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };
@@ -712,7 +712,7 @@ public:
         return this->val;
     }
     ~ASTBooleanLiteralExpression() {}
-    void accept(Visitor *v) {
+    void * accept(Visitor *v) {
         v->visit(this);
     }
 };

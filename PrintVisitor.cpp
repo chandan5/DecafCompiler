@@ -21,7 +21,7 @@ public:
             cout << "\t";
         }
     }
-    void visit(ASTProgram * node) {
+    void * visit(ASTProgram * node) {
         cout << "<program>" << endl;
         int count_field_decls = 0;
         this->tabs++;
@@ -59,7 +59,7 @@ public:
         cout << "</program>" << endl;
     }
 
-    void visit(ASTFieldDeclaration * node) {
+    void * visit(ASTFieldDeclaration * node) {
         cout << "<field_declaration " << "type=\"" << node->getDataType() << "\">" << endl;
         this->tabs++;
         for(auto it : *(node->getIdentifiers())) {
@@ -70,7 +70,7 @@ public:
         this->printTabs();
         cout << "</field_declaration>" << endl;
     }
-    void visit(ASTVarDeclaration * node) {
+    void * visit(ASTVarDeclaration * node) {
         cout << "<var_declaration " << "type=\"" << node->getDataType() << "\">" << endl;
         this->tabs++;
         for(auto it : *(node->getIdentifiers())) {
@@ -82,15 +82,15 @@ public:
         cout << "</var_declaration>" << endl;
     }
 
-    void visit(ASTNormalIdentifier * node) {
+    void * visit(ASTNormalIdentifier * node) {
         cout << "<declaration name=\"" << node->getId() << "\" />" << endl;
         // cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" />" << endl;
     }
-    void visit(ASTArrayIdentifier * node) {
+    void * visit(ASTArrayIdentifier * node) {
         cout << "<declaration name=\"" << node->getId() << "\" size=\"" << node->getSize() << "\" />"<< endl;
         // cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" size=\"" << node->getSize() << "\" />"<< endl;
     }
-    void visit(ASTMethodDeclaration * node) {
+    void * visit(ASTMethodDeclaration * node) {
         cout << "<method_declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" >" << endl;
         this->tabs++;
         // TODO shift count in AST.h
@@ -115,16 +115,16 @@ public:
         this->printTabs();
         cout << "</method_declaration>" << endl;
     }
-    void visit(ASTParam * node) {
+    void * visit(ASTParam * node) {
         cout << "<param name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" >" << endl;
     }
-    void visit(ASTIntegerLiteralExpression * node) {
+    void * visit(ASTIntegerLiteralExpression * node) {
         cout << "<integer value=\"" << node->getVal() << "\" />" << endl;
     }
-    void visit(ASTCharLiteralExpression * node) {
+    void * visit(ASTCharLiteralExpression * node) {
         cout << "<char value=\"" << node->getVal() << "\" />" << endl;
     }
-    void visit(ASTBooleanLiteralExpression * node) {
+    void * visit(ASTBooleanLiteralExpression * node) {
         if(node->getVal() == true) {
             cout << "<boolean value=\"true\" />" << endl;
         }
@@ -132,7 +132,7 @@ public:
             cout << "<boolean value=\"false\" />" << endl;
         }
     }
-    void visit(ASTBlockStatement * node) {
+    void * visit(ASTBlockStatement * node) {
         cout << "<block>" << endl;
         this->tabs++;
         // TODO shift count in AST.h
@@ -173,7 +173,7 @@ public:
         cout << "</block>" << endl;
     }
 
-    void visit(ASTAssignmentStatement * node) {
+    void * visit(ASTAssignmentStatement * node) {
         cout << "<assignment type=\"" << node->getAssignOp() << "\"" << " >" << endl;
         this->tabs++;
         this->printTabs();
@@ -201,7 +201,7 @@ public:
         cout << "</assignment>" << endl;
     }
 
-    void visit(ASTIfStatement * node) {
+    void * visit(ASTIfStatement * node) {
         cout << "<if_statement>" << endl;
         this->tabs++;
         this->printTabs();
@@ -221,7 +221,7 @@ public:
         cout << "</if_statement>" << endl;
     }
 
-    void visit(ASTForStatement * node) {
+    void * visit(ASTForStatement * node) {
         cout << "<for_statement loop_variable=\"" << node->getId() << "\"" << " >" << endl;
         this->tabs++;
         this->printTabs();
@@ -251,7 +251,7 @@ public:
         cout << "</for_statement>" << endl;
     }
 
-    void visit(ASTReturnStatement * node) {
+    void * visit(ASTReturnStatement * node) {
         cout << "<return_statement>" << endl;
         if(node->getExpression()) {
             this->tabs++;
@@ -263,7 +263,7 @@ public:
         cout << "</return_statement>" << endl;
     }
 
-    void visit(ASTUnaryExpression * node) {
+    void * visit(ASTUnaryExpression * node) {
         cout << "<unary_expression type=\"" << node->getUnOp() << "\">" << endl;
         this->tabs++;
         this->printTabs();
@@ -272,7 +272,7 @@ public:
         this->printTabs();
         cout << "</unary_expression>" << endl;
     }
-    void visit(ASTBinaryExpression * node) {
+    void * visit(ASTBinaryExpression * node) {
         cout << "<binary_expression type=\"" << node->getBinOp() << "\">" << endl;
         this->tabs++;
         this->printTabs();
@@ -284,19 +284,19 @@ public:
         cout << "</binary_expression>" << endl;
     }
 
-    void visit(ASTBreakStatement * node) {
+    void * visit(ASTBreakStatement * node) {
         cout << "<break_statement/>"<< endl;
     }
 
-    void visit(ASTContinueStatement * node) {
+    void * visit(ASTContinueStatement * node) {
         cout << "<continue_statement/>"<< endl;
     }
 
-    void visit(ASTVarLocation * node) {
+    void * visit(ASTVarLocation * node) {
         cout << "<identifier name=\"" << node->getId() << "\" />"<< endl;
     }
 
-    void visit(ASTArrayLocation * node) {
+    void * visit(ASTArrayLocation * node) {
         cout << "<identifier name=\"" << node->getId() << "\">"<< endl;
         this->tabs++;
         this->printTabs();
@@ -306,15 +306,15 @@ public:
         cout << "</identifier>" << endl;
     }
 
-    void visit(ASTMethodCallExpression * node) {
+    void * visit(ASTMethodCallExpression * node) {
         node->getASTMethodCall()->accept(this);
     }
 
-    void visit(ASTMethodCallStatement * node) {
+    void * visit(ASTMethodCallStatement * node) {
         node->getASTMethodCall()->accept(this);
     }
 
-    void visit(ASTSimpleMethodCall * node) {
+    void * visit(ASTSimpleMethodCall * node) {
         cout << "<method_call name=\"" << node->getId() << "\" >" << endl;
         this->tabs++;
         this->printTabs();
@@ -337,7 +337,7 @@ public:
         cout << "</method_call>" << endl;
     }
 
-    void visit(ASTCalloutMethodCall * node) {
+    void * visit(ASTCalloutMethodCall * node) {
         cout << "<method_call>" << endl;
         this->tabs++;
         this->printTabs();
@@ -367,10 +367,10 @@ public:
         cout << "</method_call>" << endl;
     }
 
-    void visit(ASTExpressionCalloutArg * node) {
+    void * visit(ASTExpressionCalloutArg * node) {
         node->getExpression()->accept(this);
     }
-    void visit(ASTStringCalloutArg * node) {
+    void * visit(ASTStringCalloutArg * node) {
         cout << "<callout_arg value=\"" << node->getVal() << "/>" << endl;
     }
 
