@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <fstream>
 #include "PrintVisitor.cpp"
+#include "CodeGenVisitor.cpp"
 extern "C" FILE *yyin;
 extern "C" int yyparse();
 
@@ -44,6 +45,8 @@ int main(int argc, char*argv[]) {
         printVisitor->print();
 
         cout.rdbuf(coutbuf); //reset to standard output again
+        CodeGenVisitor * codeGenVisitor = new CodeGenVisitor(astRoot);
+        codeGenVisitor->generateCode();
     }
     return 0;
 }
