@@ -56,63 +56,51 @@ public:
     }
 
     void * visit(ASTProgram * node) {
-        cout << "<program>" << endl;
-        int count_field_decls = 0;
-
-
         if(node->getASTFieldDeclarations() != NULL) {
-            count_field_decls = node->getASTFieldDeclarations()->size();
-        }
-        cout << "<field_declarations count=\"" << count_field_decls << "\">" << endl;
-
-        if(count_field_decls)
             for(auto it : *(node->getASTFieldDeclarations())) {
                 it->accept(this);
             }
-
-
-        cout << "</field_declarations>" << endl;
-        int count_method_decls = 0;
+        }
+        Function * iterator = NULL;
+        Function * userMain = NULL;
         if(node->getASTMethodDeclarations() != NULL) {
-            count_method_decls = node->getASTMethodDeclarations()->size();
+            for(auto it : *(node->getASTMethodDeclarations())) {
+                if (module->getFunction(it->getId()) && it->getId() != "main") {
+                    return ErrorHandler("Multiple Function Declaration");
+                }
+                if (it->getId() == "main" && userMain) {
+                    return ErrorHandler("Multiple Main Declaration");
+                }
+                iterator = static_cast<Function *>(it->accept(this));
+                if (it->getId() == "main" && !userMain) {
+                    userMain = iterator;
+                }
+                if (it->getId() == "main" && it->getParams()) {
+                    return ErrorHandler("Main has no arguments");
+                }
+            }
         }
-
-        cout << "<method_declarations count=\"" << count_method_decls << "\">" << endl;
-
-        if(count_method_decls)
-        for(auto it : *(node->getASTMethodDeclarations())) {
-
-            it->accept(this);
+        if (!userMain) {
+            return ErrorHandler("No Main Found");
         }
-
-
-        cout << "</method_declarations>" << endl;
-
-
-        cout << "</program>" << endl;
+        else {
+            // return CallInst::Create(userMain, "", symbolTable.topBlock());
+        }
+        return NULL;
     }
 
     void * visit(ASTFieldDeclaration * node) {
-        cout << "<field_declaration " << "type=\"" << node->getDataType() << "\">" << endl;
-
         for(auto it : *(node->getIdentifiers())) {
-
             it->accept(this);
         }
-
-
-        cout << "</field_declaration>" << endl;
+        return NULL;
     }
+
     void * visit(ASTVarDeclaration * node) {
-        cout << "<var_declaration " << "type=\"" << node->getDataType() << "\">" << endl;
-
         for(auto it : *(node->getIdentifiers())) {
-
             it->accept(this);
         }
-
-
-        cout << "</var_declaration>" << endl;
+        return NULL;
     }
 
     void * visit(ASTNormalIdentifier * node) {

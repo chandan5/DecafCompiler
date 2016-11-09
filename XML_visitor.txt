@@ -18,7 +18,7 @@
 			<declaration name="x" size="12" />
 		</field_declaration>
 	</field_declarations>
-	<method_declarations count="1">
+	<method_declarations count="2">
 		<method_declaration name="someFunc" type="integer" >
 			<params count="2" >
 				<param name="y" type="integer" >
@@ -108,6 +108,16 @@
 							</binary_expression>
 						</binary_expression>
 					</return_statement>
+				</statements>
+			</block>
+		</method_declaration>
+		<method_declaration name="main" type="void" >
+			<params count="0" >
+			</params>
+			<block>
+				<declarations count="0" >
+				</declarations>
+				<statements count="0" >
 				</statements>
 			</block>
 		</method_declaration>

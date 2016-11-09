@@ -15,4 +15,6 @@ class Program {
         func1(a,'a');
         return (12+(12-3));
     }
+    void main() {
+    }
 }
