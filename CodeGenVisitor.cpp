@@ -104,8 +104,11 @@ public:
     }
 
     void * visit(ASTNormalIdentifier * node) {
+        ASTArrayIdentifier * arrayIdentifier = dynamic_cast<ASTArrayIdentifier *> (node);
+        if (arrayIdentifier) {
+            return this->visit(arrayIdentifier);
+        }
         cout << "<declaration name=\"" << node->getId() << "\" />" << endl;
-        // cout << "<declaration name=\"" << node->getId() << "\" type=\"" << node->getDataType() << "\" />" << endl;
     }
     void * visit(ASTArrayIdentifier * node) {
         cout << "<declaration name=\"" << node->getId() << "\" size=\"" << node->getSize() << "\" />"<< endl;
